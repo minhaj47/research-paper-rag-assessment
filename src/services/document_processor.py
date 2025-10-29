@@ -1,5 +1,5 @@
 import pymupdf as fitz  # PyMuPDF
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from io import BytesIO
 import re
 import string
@@ -13,33 +13,34 @@ class DocumentProcessor:
 
         # Canonical section name aliases for normalization
         self.section_aliases = {
-            "abstract": ["abstract"],
-            "introduction": ["introduction"],
+            "abstract": ["abstract", "Abstract"],
+            "introduction": ["introduction", "Introduction", "INTRODUCTION"],
             "methodology": [
                 "methodology",
-                "methods",
+                "METHODOLOGY",
+                "methods", 
                 "materials and methods",
-                "Research methodology",
+                "research methodology",
+                "Research Methodology",
                 "research methods",
                 "experimental setup",
                 "approach",
                 "method",
             ],
             "results": [
-                "results",
+                "Results",
                 "findings",
                 "analysis",
                 "results and discussion",
                 "outcomes",
-            ],
-            "discussion": [
                 "discussion",
                 "analysis and discussion",
                 "findings and discussion",
             ],
-            "conclusion": [
-                "conclusion",
+            "conclusions": [
                 "conclusions",
+                "conclusion",
+                "conclusion and future work",
                 "summary",
                 "concluding remarks",
                 "future work",
@@ -52,13 +53,15 @@ class DocumentProcessor:
             ],
         }
 
-        # Flatten list of all possible header phrases
-        self.all_header_phrases = [
-            h for variants in self.section_aliases.values() for h in variants
-        ]
-
-        # Detect numbered headers like "1. Introduction" or "2.1 Research Methodology"
+        # Pre-compile regex patterns for better performance
         self._header_re = re.compile(r"^\s*(\d+(\.\d+)*)\.?\s*(?P<h>.+)$")
+        self._whitespace_re = re.compile(r"\s+")
+        
+        # Pre-compile metadata skip patterns
+        self._skip_patterns = {
+            "doi", "http", "@", "received", "revised", "accepted", 
+            "published", "license", "correspondence", "copyright"
+        }
 
     # -------------------------------------------------------------------------
     # Public async entrypoint
@@ -74,15 +77,14 @@ class DocumentProcessor:
         doc = fitz.open(stream=pdf_stream, filetype="pdf")
 
         metadata = self._extract_metadata(doc)
-
-        sections: Dict[str, Dict[str, Any]] = {}
+        sections: Dict[str, Dict[str, Any]] = {"preamble": {"text": [], "start_page": 1}}
         current_section = "preamble"
-        sections[current_section] = {"text": [], "start_page": 1}
 
         for page_index, page in enumerate(doc):
             page_no = page_index + 1
             blocks = page.get_text("dict").get("blocks", [])
 
+            # Calculate median font size once per page
             sizes = [
                 span.get("size", 0)
                 for block in blocks
@@ -94,49 +96,46 @@ class DocumentProcessor:
             for block in blocks:
                 if "lines" not in block:
                     continue
+                    
                 for line in block["lines"]:
                     spans = line.get("spans", [])
                     if not spans:
                         continue
 
                     text, max_size = self._merge_spans(spans)
-                    if not text.strip():
+                    text = text.strip()
+                    if not text:
                         continue
 
                     # Detect header
                     header_token = self._detect_header(text, max_size, page_median_size)
                     if header_token:
                         current_section = header_token
-                        sections.setdefault(
-                            current_section, {"text": [], "start_page": page_no}
-                        )
-
-                        # ✅ Keep full line (header + following text)
-                        sections[current_section]["text"].append(f"[PAGE {page_no}] {text.strip()}")
+                        if current_section not in sections:
+                            sections[current_section] = {"text": [], "start_page": page_no}
+                        sections[current_section]["text"].append(f"[PAGE {page_no}] {text}")
                         continue
 
                     # Front matter handling
                     if self._is_front_matter_line(text):
-                        sections.setdefault("preamble", {"text": [], "start_page": 1})
-                        sections["preamble"]["text"].append(f"[PAGE {page_no}] {text.strip()}")
+                        sections["preamble"]["text"].append(f"[PAGE {page_no}] {text}")
                         continue
 
                     # Regular content
-                    sections.setdefault(current_section, {"text": [], "start_page": page_no})
-                    sections[current_section]["text"].append(f"[PAGE {page_no}] {text.strip()}")
+                    if current_section not in sections:
+                        sections[current_section] = {"text": [], "start_page": page_no}
+                    sections[current_section]["text"].append(f"[PAGE {page_no}] {text}")
 
         doc.close()
 
-        # Clean up tiny/empty sections
-        sections = {
-            k: v for k, v in sections.items() if len(" ".join(v.get("text", []))) > 30
-        }
-
-        # Chunk and prepare output
+        # Clean up empty sections and prepare output
         processed_sections: Dict[str, Any] = {}
         for name, content in sections.items():
-            joined = " ".join(content["text"]).strip()
-            joined = re.sub(r"\s+", " ", joined)
+            joined = " ".join(content["text"])
+            if len(joined) <= 30:  # Skip tiny sections
+                continue
+                
+            joined = self._whitespace_re.sub(" ", joined).strip()
             chunks = self._chunk_text(joined)
 
             processed_sections[name] = {
@@ -151,17 +150,17 @@ class DocumentProcessor:
     # -------------------------------------------------------------------------
     # Helper: Merge text spans properly
     # -------------------------------------------------------------------------
-    def _merge_spans(self, spans: List[Dict[str, Any]]) -> (str, float):
+    def _merge_spans(self, spans: List[Dict[str, Any]]) -> Tuple[str, float]:
         text = ""
         max_size = 0.0
         for span in spans:
             s_text = span.get("text", "").strip()
             size = span.get("size", 0)
             max_size = max(max_size, size)
-
+    
             if not s_text:
                 continue
-
+    
             if text.endswith("-"):
                 text = text[:-1] + s_text
             else:
@@ -174,48 +173,29 @@ class DocumentProcessor:
     def _detect_header(
         self, line_text: str, line_max_size: float, page_median_size: float
     ) -> Optional[str]:
-        txt = line_text.strip()
-        if not txt:
+        if not line_text:
             return None
 
-        lower = txt.lower()
-        # Skip lines that are obviously metadata or author info
-        if any(
-            k in lower
-            for k in [
-                "doi",
-                "http",
-                "@",
-                "received",
-                "revised",
-                "accepted",
-                "published",
-                "license",
-                "correspondence",
-                "copyright",
-            ]
-        ):
+        lower = line_text.lower()
+        # Skip metadata lines
+        if any(skip in lower for skip in self._skip_patterns):
             return None
 
-        # Handle numbered header forms (e.g., "2.1 Methods")
-        match = self._header_re.match(txt)
-        norm = match.group("h") if match else txt
-        norm = self._strip_punct(norm).lower()
+        # Handle numbered headers (e.g., "2.1 Methods")
+        match = self._header_re.match(line_text)
+        norm = (match.group("h") if match else line_text).lower()
+        norm = self._strip_punct(norm)
 
-        # Direct or substring match to any known header phrase
+        # Check against known section patterns
         for canonical, variants in self.section_aliases.items():
             for variant in variants:
-                if norm == variant or norm.startswith(variant + " "):
-                    return canonical
-                if variant in norm and len(norm) <= 80:
+                if norm == variant or norm.startswith(variant + " ") or (variant in norm and len(norm) <= 80):
                     return canonical
 
-        # Font-size heuristic (large text likely to be a header)
-        if (
-            page_median_size
-            and line_max_size >= max(page_median_size * 1.25, page_median_size + 2)
-            and len(norm) <= 80
-        ):
+        # Font-size heuristic for headers
+        if (page_median_size and 
+            line_max_size >= page_median_size * 1.25 and 
+            len(norm) <= 80):
             for canonical, variants in self.section_aliases.items():
                 for variant in variants:
                     if variant in norm:
@@ -228,30 +208,19 @@ class DocumentProcessor:
     # -------------------------------------------------------------------------
     def _is_front_matter_line(self, text: str) -> bool:
         lower = text.lower()
-        if any(
-            k in lower
-            for k in [
-                "doi",
-                "http",
-                "license",
-                "academic editor",
-                "received",
-                "revised",
-                "accepted",
-                "published",
-                "correspondence",
-                "copyright",
-                "basel",
-            ]
-        ):
+        # Check for common metadata keywords
+        front_matter_keywords = {
+            "doi", "http", "license", "academic editor", "received", 
+            "revised", "accepted", "published", "correspondence", "copyright", "basel"
+        }
+        if any(keyword in lower for keyword in front_matter_keywords):
             return True
-        # Author-like lines (many commas or capitalized short names)
-        if text.count(",") >= 2 or len(text.split()) <= 8:
-            cap_tokens = sum(
-                1 for t in text.split() if re.match(r"^[A-Z][a-zA-Z\-\.]{1,}$", t)
-            )
-            if cap_tokens >= max(2, len(text.split()) // 3):
-                return True
+            
+        # Author-like lines (many commas or capitalized names)
+        if text.count(",") >= 2 and len(text.split()) <= 8:
+            words = text.split()
+            cap_count = sum(1 for word in words if word[0].isupper() and len(word) > 1)
+            return cap_count >= len(words) // 3
         return False
 
     # -------------------------------------------------------------------------
@@ -259,12 +228,10 @@ class DocumentProcessor:
     # -------------------------------------------------------------------------
     def _extract_metadata(self, doc: fitz.Document) -> Dict[str, Any]:
         meta = doc.metadata or {}
-        title = meta.get("title") or ""
-        author = meta.get("author") or ""
-        subject = meta.get("subject") or ""
-        keywords = meta.get("keywords") or ""
-        page_count = doc.page_count
+        title = meta.get("title", "")
+        author = meta.get("author", "")
 
+        # Extract title from first page if not in metadata
         if not title:
             try:
                 first_page = doc[0]
@@ -272,25 +239,24 @@ class DocumentProcessor:
                 for block in first_page.get_text("dict").get("blocks", []):
                     for line in block.get("lines", []):
                         for span in line.get("spans", []):
-                            t = span.get("text", "").strip()
-                            s = span.get("size", 0)
-                            if len(t) > 8:
-                                candidates.append((s, t))
+                            text = span.get("text", "").strip()
+                            size = span.get("size", 0)
+                            if len(text) > 8:
+                                candidates.append((size, text))
+                
+                # Sort by font size and find first valid title
                 candidates.sort(key=lambda x: x[0], reverse=True)
-                for size, txt in candidates:
-                    if txt.count(",") > 2 or "doi" in txt.lower() or "@" in txt:
-                        continue
-                    title = txt.strip()
-                    break
+                for _, txt in candidates:
+                    if not any(skip in txt.lower() for skip in ["doi", "@"]) and txt.count(",") <= 2:
+                        title = txt
+                        break
             except Exception:
                 pass
 
         return {
             "title": title or "Unknown",
-            "author": author or "Unknown",
-            "subject": subject,
-            "keywords": keywords,
-            "page_count": page_count,
+            "author": author or "Unknown", 
+            "page_count": doc.page_count,
         }
 
     # -------------------------------------------------------------------------
@@ -298,27 +264,27 @@ class DocumentProcessor:
     # -------------------------------------------------------------------------
     def _chunk_text(self, text: str) -> List[str]:
         sentences = re.split(r"(?<=[.!?])\s+", text)
-        chunks, current = [], ""
-        for s in sentences:
-            if len(current) + len(s) > self.chunk_size:
-                if current:
-                    chunks.append(current.strip())
-                current = s
+        chunks = []
+        current = ""
+        
+        for sentence in sentences:
+            # If adding this sentence would exceed chunk size
+            if len(current) + len(sentence) > self.chunk_size and current:
+                chunks.append(current.strip())
+                current = sentence
             else:
-                current = (current + " " + s).strip() if current else s
+                current = f"{current} {sentence}".strip() if current else sentence
+        
         if current:
             chunks.append(current.strip())
 
+        # Simple overlap: add last N characters from previous chunk
         if self.overlap > 0 and len(chunks) > 1:
-            overlapped = []
-            for i, chunk in enumerate(chunks):
-                if i == 0:
-                    overlapped.append(chunk)
-                else:
-                    overlap_text = overlapped[-1][-self.overlap :]
-                    overlap_text = re.sub(r"^\S*\s", "", overlap_text)
-                    overlapped.append((overlap_text + " " + chunk).strip())
-            chunks = overlapped
+            for i in range(1, len(chunks)):
+                prev_chunk = chunks[i-1]
+                overlap_text = prev_chunk[-self.overlap:].lstrip()
+                chunks[i] = f"{overlap_text} {chunks[i]}"
+
         return chunks
 
     # -------------------------------------------------------------------------

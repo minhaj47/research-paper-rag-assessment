@@ -4,43 +4,36 @@
   "metadata": {
     "title": "We need a broader debate on the sustainability of blockchain",
     "author": "Alexander Rieger",
-    "subject": "Joule, 6 (2022) 1137-1141. doi:10.1016/j.joule.2022.04.013",
-    "keywords": "",
     "page_count": 8
   },
   "sections": {
     "preamble": {
-      "chunk_count": 8,
+      "chunk_count": 5,
       "start_page": 1,
       "preview": "[PAGE 1] Commentary [PAGE 1] We need a broader debate [PAGE 1] on the sustainability [PAGE 1] of blockchain [PAGE 1] Alexander Rieger, 1, * Tamara Roth, 1,2 Johannes Sedlmeir, 3,4 [PAGE 1] and Gilbert Fridgen 1 [PAGE 1] Alexander Rieger is a postdoc- [PAGE 1] toral researcher at the Interdisci- [PAGE 1] plinary Centre for Security, Reli- [PAGE 1] ability and Trust (SnT) at the [PAGE 1] University of Luxembourg. His [PAGE 1] research interests include innova- [PAGE 1] tive digital technologies such as [PAGE 1] blockchain, decentralized digital [PAGE 1] identities, [PAGE 1] and [PAGE 1] artiﬁcial [PAGE 1] intelli- [PAGE 1] gence. Alex leads the scientiﬁc [PAGE 1] advisory team for the FLORA [PAGE 1] blockchain project of Germany’s [PAGE 1] Federal Ofﬁce for Migration and [PAGE 1] Refugees and acts as advisor to [PAGE 1] the European Blockchain Partner- [PAGE 1] ship and various public and pri- [PAGE 1] vate sector partners in Germany [PAGE 1] and Luxembourg."
     },
     "methodology": {
       "chunk_count": 3,
       "start_page": 1,
-      "preview": "[PAGE 1] graphic methods such as zero- [PAGE 1] knowledge proofs for scalable [PAGE 1] and privacy-oriented blockchain [PAGE 1] solutions [PAGE 1] in [PAGE 1] different [PAGE 1] sectors, [PAGE 1] and decentralized digital identi- [PAGE 1] theoretical [PAGE 1] and [PAGE 1] mathematical [PAGE 1] physics. [PAGE 1] ﬁnancial services at the Interdisci- [PAGE 1] research, he analyzes the trans- [PAGE 1] formative effects of digital tech- [PAGE 1] nologies on individual organiza- [PAGE 1] tions and on the relationship [PAGE 1] between organizations. He ad- [PAGE 1] dresses [PAGE 1] potentially [PAGE 1] disruptive [PAGE 1] technologies like blockchain, de- [PAGE 1] centralized digital identities, arti- [PAGE 1] ﬁcial intelligence, or the Internet [PAGE 1] information systems engineering [PAGE 1] and IT strategy and (risk) manage- [PAGE 1] ment, [PAGE 1] as [PAGE 1] well [PAGE 1] as [PAGE 1] regulatory [PAGE 1] compliance."
+      "preview": "[PAGE 1] graphic methods such as zero- [PAGE 1] knowledge proofs for scalable [PAGE 1] and privacy-oriented blockchain [PAGE 1] solutions [PAGE 1] in [PAGE 1] different [PAGE 1] sectors, [PAGE 1] and decentralized digital identi- [PAGE 1] theoretical [PAGE 1] and [PAGE 1] mathematical [PAGE 1] physics. [PAGE 1] Gilbert Fridgen is professor and [PAGE 1] PayPal-FNR PEARL chair in digital [PAGE 1] ﬁnancial services at the Interdisci- [PAGE 1] plinary Centre for Security, Reli- [PAGE 1] ability and Trust (SnT) at the Uni- [PAGE 1] versity of Luxembourg. In his [PAGE 1] research, he analyzes the trans- [PAGE 1] formative effects of digital tech- [PAGE 1] nologies on individual organiza- [PAGE 1] tions and on the relationship [PAGE 1] between organizations. He ad- [PAGE 1] dresses [PAGE 1] potentially [PAGE 1] disruptive [PAGE 1] technologies like blockchain, de- [PAGE 1] centralized digital identities, arti- [PAGE 1] ﬁcial intelligence, or the Internet [PAGE 1] of Things."
     },
     "results": {
-      "chunk_count": 1,
+      "chunk_count": 20,
       "start_page": 1,
-      "preview": "[PAGE 1] differentiated analysis but also a dis- [PAGE 1] cussion [PAGE 1] about [PAGE 1] the [PAGE 1] environmental [PAGE 1] beneﬁts of blockchain. In fact, there [PAGE 1] is reason to believe that non-PoW block- [PAGE 1] chains may enable [PAGE 1] applications that [PAGE 1] contribute to sustainability, for instance, [PAGE 1] by reducing wasteful practices in food [PAGE 1] supply [PAGE 1] chains, 3 [PAGE 1] container [PAGE 1] shipment, 4 [PAGE 1] and public services 5 or by facilitating [PAGE 1] more efﬁcient carbon markets. 6 [PAGE 1] In this commentary, we consequently [PAGE 1] argue for a broader debate on the sus- [PAGE 1] tainability of blockchain. We begin our"
+      "preview": "[PAGE 1] differentiated analysis but also a dis- [PAGE 1] cussion [PAGE 1] about [PAGE 1] the [PAGE 1] environmental [PAGE 1] beneﬁts of blockchain. In fact, there [PAGE 1] is reason to believe that non-PoW block- [PAGE 1] chains may enable [PAGE 1] applications that [PAGE 1] contribute to sustainability, for instance, [PAGE 1] by reducing wasteful practices in food [PAGE 1] supply [PAGE 1] chains, 3 [PAGE 1] container [PAGE 1] shipment, 4 [PAGE 1] and public services 5 or by facilitating [PAGE 1] more efﬁcient carbon markets. 6 [PAGE 1] In this commentary, we consequently [PAGE 1] argue for a broader debate on the sus- [PAGE 1] tainability of blockchain. We begin our [PAGE 1] argument with a discussion of the sig- [PAGE 1] niﬁcant energy savings that can be real- [PAGE 1] ized for public blockchains by using [PAGE 1] proof of stake (PoS) instead of PoW."
     },
-    "discussion": {
-      "chunk_count": 19,
-      "start_page": 1,
-      "preview": "[PAGE 1] argument with a discussion of the sig- [PAGE 1] niﬁcant energy savings that can be real- [PAGE 1] ized for public blockchains by using [PAGE 1] the second part, we provide measure- [PAGE 1] ments for the energy consumption of [PAGE 1] prominent private blockchains to com- [PAGE 1] plement those for major PoW 1 , 2 and [PAGE 1] discussion of blockchain applications [PAGE 1] that may well add to sustainability. [PAGE 1] Overall, we aim to provide a clearer pic- [PAGE 1] ture of the energy needs of different [PAGE 1] blockchains and help to identify areas [PAGE 1] of application where blockchains can [PAGE 1] be a source of sustainability. [PAGE 1] Energy-efﬁcient public blockchains [PAGE 1] chains is rooted in the basic challenge [PAGE 1] ll [PAGE 2] of blockchain networks: ensuring that [PAGE 2] the blockchain’s distributed copies are [PAGE 2] updated truthfully and reliably."
-    },
-    "conclusion": {
+    "conclusions": {
       "chunk_count": 4,
       "start_page": 4,
       "preview": "[PAGE 4] Conclusion [PAGE 4] Given the broad range of blockchains [PAGE 4] beyond PoW, we argue for a more [PAGE 4] differentiated debate about the sus- [PAGE 4] tainability of blockchain technology. [PAGE 4] We particularly caution against blindly [PAGE 4] extending [PAGE 4] the [PAGE 4] critique [PAGE 4] of [PAGE 4] PoW [PAGE 4] to [PAGE 4] PoS and private blockchains, which [PAGE 4] both have low energy needs. Since [PAGE 4] some of them may even add to sustain- [PAGE 4] ability, we also see a need for a [PAGE 4] more [PAGE 4] balanced [PAGE 4] debate [PAGE 4] that [PAGE 4] goes [PAGE 4] beyond environmental costs and re- [PAGE 4] ﬂects [PAGE 4] on [PAGE 4] environmental [PAGE 4] beneﬁts. [PAGE 4] This debate can build on ongoing ef- [PAGE 4] forts to identify areas of application [PAGE 4] in which blockchain could contribute [PAGE 4] to [PAGE 4] sustainability."
     },
     "references": {
-      "chunk_count": 9,
+      "chunk_count": 10,
       "start_page": 5,
-      "preview": "[PAGE 5] ACKNOWLEDGMENTS [PAGE 5] A.R., T.R., and G.F. are supported by [PAGE 5] PayPal-FNR/Chair in DFS/Gilbert Frid- [PAGE 5] gen). [PAGE 5] PayPal’s [PAGE 5] ﬁnancial [PAGE 5] support [PAGE 5] is [PAGE 5] administered via the [PAGE 5] FNR, and by [PAGE 5] contractual agreement, PayPal has no [PAGE 5] involvement in A.R., T.R., and G.F.’s [PAGE 5] research. [PAGE 5] The authors declare no competing [PAGE 5] interests. [PAGE 5] 1. Gallersdo¨ rfer, U., Klaaßen, L., and Stoll, C. [PAGE 5] (2020). Energy consumption of [PAGE 5] 2020.07.013 . [PAGE 5] 2. de Vries, A., Gallersdo¨ rfer, U., Klaaßen, [PAGE 5] Bitcoin’s carbon footprint. Joule 6 , [PAGE 5] 2022.02.005 . [PAGE 5] blockchain/solutions/food-trust . [PAGE 5] blocks/wikis/display/EBSI/Home . [PAGE 5] 6. Sadawi, A.A., Madani, B., Saboor, S., Ndiaye, [PAGE 5] M., and Abu-Lebdeh, G. (2021)."
+      "preview": "[PAGE 5] ACKNOWLEDGMENTS [PAGE 5] PayPal and the Luxembourg National [PAGE 5] Research Fund FNR (P17/IS/13342933/ [PAGE 5] PayPal-FNR/Chair in DFS/Gilbert Frid- [PAGE 5] gen). [PAGE 5] PayPal’s [PAGE 5] ﬁnancial [PAGE 5] support [PAGE 5] is [PAGE 5] administered via the [PAGE 5] FNR, and by [PAGE 5] contractual agreement, PayPal has no [PAGE 5] research. [PAGE 5] DECLARATION OF INTERESTS [PAGE 5] The authors declare no competing [PAGE 5] interests. [PAGE 5] 1. Gallersdo¨ rfer, U., Klaaßen, L., and Stoll, C. [PAGE 5] (2020). Energy consumption of [PAGE 5] cryptocurrencies beyond Bitcoin. Joule 4 , [PAGE 5] 2020.07.013 . [PAGE 5] Bitcoin’s carbon footprint. Joule 6 , [PAGE 5] 2022.02.005 . [PAGE 5] blockchain/solutions/food-trust . [PAGE 5] 5. European Blockchain Services Infrastructure. [PAGE 5] blocks/wikis/display/EBSI/Home . [PAGE 5] comprehensive hierarchical blockchain [PAGE 5] system for carbon emission trading utilizing [PAGE 5] blockchain of things and smart contract."
     }
   },
-  "total_chunks": 44,
+  "total_chunks": 42,
   "content_type": "application/pdf",
   "file_size": 747892
 }

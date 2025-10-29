@@ -4,13 +4,11 @@
   "metadata": {
     "title": "Template EN Multiple authors",
     "author": "Amfiteatru Economic",
-    "subject": "",
-    "keywords": "",
     "page_count": 10
   },
   "sections": {
     "preamble": {
-      "chunk_count": 6,
+      "chunk_count": 3,
       "start_page": 1,
       "preview": "[PAGE 1] Sustainable Business and Consumption Trends 2019 [PAGE 1] AE [PAGE 1] Vol. 21 • Special Issue No. 13 • November 2019 [PAGE 1] 861 [PAGE 1] BLOCKCHAIN APPLICATIONS AND SUSTAINABILITY ISSUES [PAGE 1] Roberto Leonardo Rana 1 , Pasquale Giungato 2* , Angela Tarabella 3 [PAGE 1] and Caterina Tricase 4 [PAGE 1] 1), 4) University of Foggia, Italy; 2) University of Bari, Italy [PAGE 1] 3) University of Pisa, Italy [PAGE 1] Please cite this article as: [PAGE 1] Rana, R.L., Giungato, P., Tarabella, A. and Tricase, C., [PAGE 1] 2019. Blockchain Applications and Sustainability Issues. [PAGE 1] Amfiteatru Economic , 21(Special Issue No. 13), [PAGE 1] pp. 861-870."
     },
@@ -32,20 +30,20 @@
     "methodology": {
       "chunk_count": 6,
       "start_page": 4,
-      "preview": "[PAGE 4] and empirical methodology still not validate by scholars, called Bitcoin Energy [PAGE 4] Consumption Index that estimate and predict energy consumed to mine this virtual money. [PAGE 4] The author assessed in the 2019 (until September) an average energy consumption equal to [PAGE 4] 73.21TWh that correspond to the release of 34.73 MtCO 2 or CO 2 emitted by Denmark in [PAGE 4] the same year (de Vries, 2019a). [PAGE 4] In figure no. 1 is shown two trends of CO 2 emitted by energy consumed for Bitcoin [PAGE 4] transactions. According to de Vries (2019b) the energy consumption is an estimation, so the [PAGE 4] blue and yellow line consider the maximum and minus quantity of CO 2 release by all [PAGE 4] transactions. In both trends there is an increased from 2017 to the end of 2018 followed by [PAGE 4] a decrease. In the begin of 2019 a new increase is observed. [PAGE 5] AE [PAGE 5] Vol. 21 • Special Issue No. 13 • November 2019 [PAGE 5] 865 [PAGE 5] Figure no. 1."
+      "preview": "[PAGE 4] and empirical methodology still not validate by scholars, called Bitcoin Energy [PAGE 4] Consumption Index that estimate and predict energy consumed to mine this virtual money. [PAGE 4] The author assessed in the 2019 (until September) an average energy consumption equal to [PAGE 4] 73.21TWh that correspond to the release of 34.73 MtCO 2 or CO 2 emitted by Denmark in [PAGE 4] the same year (de Vries, 2019a). [PAGE 4] In figure no. 1 is shown two trends of CO 2 emitted by energy consumed for Bitcoin [PAGE 4] transactions. According to de Vries (2019b) the energy consumption is an estimation, so the [PAGE 4] blue and yellow line consider the maximum and minus quantity of CO 2 release by all [PAGE 4] transactions. In both trends there is an increased from 2017 to the end of 2018 followed by [PAGE 4] a decrease. In the begin of 2019 a new increase is observed. [PAGE 5] Sustainable Business and Consumption Trends 2019 [PAGE 5] AE [PAGE 5] Vol. 21 • Special Issue No."
     },
-    "conclusion": {
+    "conclusions": {
       "chunk_count": 13,
       "start_page": 6,
       "preview": "[PAGE 6] particular it allows, in summary, to: [PAGE 6]  carry out transactions guaranteed by a certain level of anonymity; [PAGE 6]  avoid the use of traditional financial institutions for the production and management [PAGE 6] of the currency; [PAGE 6]  make payments at a distance; [PAGE 6]  reduce transaction costs. [PAGE 6] But despite these undeniable benefits, Bitcoin has not yet imposed itself on traditional [PAGE 6] payment systems. It presents a strong acceptance limit, in the sense that it can be spent for [PAGE 6] the purchase of goods and services online only in special sites that provide payments with [PAGE 6] virtual currency; its use is tied to the availability of a technology necessary for access not at [PAGE 6] the moment universally widespread. This limitation is a huge disadvantage both for the [PAGE 6] differences between countries and for the difficulty of access to the most modern [PAGE 6] technologies by the poorest section of the population."
     },
     "references": {
-      "chunk_count": 3,
+      "chunk_count": 4,
       "start_page": 8,
-      "preview": "[PAGE 8] References [PAGE 8] Abraham, J., Sutiksno, D.U., Kurniasih, N. and Warokka, A., 2019. Acceptance and [PAGE 8] penetration of Bitcoin: the role of psychological distance and national culture. SAGE [PAGE 9] AE [PAGE 9] Vol. 21 • Special Issue No. 13 • November 2019 [PAGE 9] 869 [PAGE 9] Storage System Secured by Blockchains. In: Proceedings of the 2016 USENIX Annual [PAGE 9] Alshamsi, A. and Andras, P., 2019. User perception of Bitcoin usability and security across [PAGE 9] Blockchain.info, [PAGE 9] 2019. [PAGE 9] Bitcoins [PAGE 9] in [PAGE 9] circulation . [PAGE 9] [online] [PAGE 9] Available [PAGE 9] at: [PAGE 9] Available [PAGE 9] at: [PAGE 9] 2930177-6> [Accessed 4 April 2019]. [PAGE 9] 2019. [PAGE 9] El Bahrawy, A., Alessandretti, L., Kandler, A., Pastor-Satorrasc, R. and Baronchelli, A., [PAGE 9] 2017. Evolutionary dynamics of the cryptocurrency market. Royal Society Open [PAGE 9] Fan, J., Yi, L.T. and Shu, J.W., 2013. Research on the technologies of Byzantine system."
+      "preview": "[PAGE 8] References [PAGE 8] Abraham, J., Sutiksno, D.U., Kurniasih, N. and Warokka, A., 2019. Acceptance and [PAGE 8] penetration of Bitcoin: the role of psychological distance and national culture. SAGE [PAGE 9] Sustainable Business and Consumption Trends 2019 [PAGE 9] AE [PAGE 9] Vol. 21 • Special Issue No. 13 • November 2019 [PAGE 9] 869 [PAGE 9] Ali, M., Nelson J., Shea, R. and Freedman, M.J. 2016. Blockstack: A Global Naming and [PAGE 9] Storage System Secured by Blockchains. In: Proceedings of the 2016 USENIX Annual [PAGE 9] Technical Conference . USENIX ATC Conference 2016. Denver, USA, June 22–24, [PAGE 9] 2016. Berkeley: USENIX Association. pp.181-194. [PAGE 9] Alshamsi, A. and Andras, P., 2019. User perception of Bitcoin usability and security across [PAGE 9] novice users. International Journal of Human-Computer Studies , 126, pp.94-110. [PAGE 9] Blockchain.info, [PAGE 9] 2019. [PAGE 9] Bitcoins [PAGE 9] in [PAGE 9] circulation ."
     }
   },
-  "total_chunks": 45,
+  "total_chunks": 43,
   "content_type": "application/pdf",
   "file_size": 456551
 }
