@@ -1,0 +1,39 @@
+{
+  "status": "success",
+  "filename": "paper_4.pdf",
+  "metadata": {
+    "title": "Improving Maritime Transport Sustainability Using Blockchain-Based Information Exchange",
+    "author": "Marija Jović, Edvard Tijan, Dražen Žgaljić and Saša Aksentijević",
+    "page_count": 19
+  },
+  "sections": {
+    "preamble": {
+      "chunk_count": 10,
+      "start_page": 1,
+      "preview": "[PAGE 1] sustainability [PAGE 1] Review [PAGE 1] Improving Maritime Transport Sustainability Using [PAGE 1] Blockchain-Based Information Exchange [PAGE 1] Marija Jovi´c 1 , Edvard Tijan 1, * [PAGE 1] , Dražen Žgalji´c 1 and Saša Aksentijevi´c 2 [PAGE 1] 1 [PAGE 1] Faculty of Maritime Studies, University of Rijeka, 51000 Rijeka, Croatia; jovic@pfri.hr (M.J.); [PAGE 1] zgaljic@pfri.hr (D.Ž.) [PAGE 1] 2 [PAGE 1] Aksentijevi´c Forensics and Consulting, Ltd., 51216 Viškovo, Croatia; sasa.aksentijevic@gmail.com [PAGE 1] * [PAGE 1] Correspondence: etijan@pfri.hr; Tel.: + 385-92-28-28-964 [PAGE 1] Received: 22 September 2020; Accepted: 22 October 2020; Published: 26 October 2020 [PAGE 1] \u0001\u0002\u0003\u0001\u0004\u0005\u0006\u0007\b [PAGE 1] \u0001\u0002\u0003\u0004\u0005\u0006\u0007 [PAGE 1] Abstract: In this paper, the authors perform a comprehensive literature review of the positive impacts [PAGE 1] of blockchain-based information exchange in the maritime transport sector, as well as the challenges [PAGE 1] and barriers for successful blockchain-based information exchange, considering all three aspects of [PAGE 1] the sustainability (economic, environmental, and social)."
+    },
+    "introduction": {
+      "chunk_count": 15,
+      "start_page": 1,
+      "preview": "[PAGE 1] 1. Introduction [PAGE 1] The shipping industry is still a traditionally oriented industry, despite numerous technological [PAGE 1] revolutions [ 1 ]. [PAGE 1] The companies in the maritime transport sector are facing notable challenges [PAGE 1] resulting from the emergence of disruptive technologies, for example, the lack of regulation and [PAGE 1] the issues of security and privacy. Nevertheless, the disruptive innovations deﬁnitely possess a [PAGE 1] potential to improve transport business [ 2 ]. The blockchain, as a disruptive technology and a driver of [PAGE 1] digital transformation, is projected to be the latest transformative innovation and is increasingly gaining [PAGE 1] attention from academics, practitioners, and regulators across various industries [ 3 , 4 ]."
+    },
+    "methodology": {
+      "chunk_count": 34,
+      "start_page": 4,
+      "preview": "[PAGE 4] 3. Methodology [PAGE 4] In total, 99 sources have been identiﬁed as relevant for this research. [PAGE 4] Table 1 shows the [PAGE 4] jou rnals, books , and conference papers categorized based on topics. 62 papers were selected from [PAGE 4] 43 journals, and 10 papers were selected from 10 conferences. Two books relevant to this topic were [PAGE 4] also included. [PAGE 4] Table 1. Categorized journals, conferences, and books (related to sustainability and blockchain-based [PAGE 4] information exchange) based on topics from 2012 to 2020."
+    },
+    "conclusions": {
+      "chunk_count": 8,
+      "start_page": 13,
+      "preview": "[PAGE 13] 5. Discussion and Conclusions [PAGE 13] Although the blockchain has been one of the most discussed topics in the recent years, there is still [PAGE 13] a lack of research regarding the blockchain-based information exchange in the maritime transp ort sect or. [PAGE 13] T he aut hors have ﬁrst analysed the positive impacts of the blockchain-based information exchange [PAGE 13] in the maritime transport sector, including all three aspects of sustainability. Alth ough atte ntion [PAGE 13] is often being paid to the economic or environmental aspects of sustainability in the maritime [PAGE 13] tran sport se ctor, research has proved the importance of the blockchain-based information exchange [PAGE 13] on the social aspect of sustainability as well. The social aspect is usually related to the trust among [PAGE 13] stakeholders and data security, the reduction of human errors, the reduction of rework and recall, [PAGE 13] and enhanced jo b performanc e."
+    },
+    "references": {
+      "chunk_count": 23,
+      "start_page": 14,
+      "preview": "[PAGE 14] References [PAGE 14] 1. [PAGE 14] Peronja, I.; Lenac, K.; Glavinovi´c, R. Blockchain technology in maritime industry. Multidiscip. Sci. J. [PAGE 14] 2. [PAGE 14] Jovi´c, M.; Tijan, E.; Aksentijevi´c, S.; Žgalji´c, D. Disruptive innovations in electronic Transaction Management [PAGE 14] Systems. In Proceedings of the 33rd Bled eConference—Enabling Technology for a Sustainable Society, [PAGE 14] Online Conference, 28–29 June 2020; University of Maribor Press: Bled, Slovenia, 2020. Available online: [PAGE 14] 3. [PAGE 14] Schmidt, C.G.; Wagner, S.M. Blockchain and supply chain relations: A transaction cost theory perspective. [PAGE 14] J. Purch. Supply Manag. 2019 , 25 , 100552. [ CrossRef ] [PAGE 14] 4. [PAGE 14] Kummer, S.; Herold, D.M.; Dobrovnik, M.; Mikl, J.; Schäfer, N. A Systematic Review of Blockchain Literature [PAGE 14] in Logistics and Supply Chain Management: Identifying Research Questions and Future Directions. [PAGE 14] Future Internet 2020 , 12 , 60."
+    }
+  },
+  "total_chunks": 90,
+  "content_type": "application/pdf",
+  "file_size": 849408
+}

@@ -8,32 +8,12 @@
   },
   "sections": {
     "preamble": {
-      "chunk_count": 2,
+      "chunk_count": 30,
       "start_page": 1,
-      "preview": "[PAGE 1] Evaluating and Enhancing Large Language Models [PAGE 1] for Islamic Question Answering [PAGE 1] Md. Naimul Haque, Mostahid Hasan Fahim, Md. Minhajul Haque, Md. Fuad Al Amin, [PAGE 1] Dr. M. Shahidur Rahman, Dr. Mohammad Reza Selim, Md. Ataullha Saim [PAGE 1] Department of Computer Science and Engineering, [PAGE 1] Shahjalal University of Science and Technology (SUST), Sylhet, Bangladesh [PAGE 1] Email: naimul@example.com, fahim@example.com, selim@example.com [PAGE 1] Answering, Prompt Engineering, Fine-Tuning, Domain-Specific [PAGE 1] initiatives, such as Qur’an QA 2022, created benchmarks [PAGE 1] However, evaluations of large-scale, general-purpose LLMs [PAGE 3] Baseline [PAGE 4] Baseline [PAGE 4] After prompt engineering, fine-tuning and RAG, all models [PAGE 5] Answer Corpus,” LREC , 2017. [PAGE 5] Sirah Nabawiyah,” in Proceedings of ICCSCI , 2023. [PAGE 5] ChatGPT- to human-generated exam questions,” Academic Medicine , [PAGE 5] Eds."
-    },
-    "abstract": {
-      "chunk_count": 1,
-      "start_page": 1,
-      "preview": "[PAGE 1] Abstract —This paper evaluates the performance of large [PAGE 1] language models (LLMs) in the context of Islamic question [PAGE 1] answering, a specialized domain that requires both factual [PAGE 1] accuracy and cultural sensitivity. We investigate two models, [PAGE 1] Mistral-7B and LLaMA-3.2-3B, assessing their ability to answer [PAGE 1] multiple-choice and short-answer questions derived from a cu- [PAGE 1] rated dataset of 13,000 Islamic questions. Unlike general-purpose [PAGE 1] evaluations, our work emphasizes the unique challenges posed by [PAGE 1] religious content, including the necessity to align with authentic [PAGE 1] sources and avoid interpretive errors. The study applies prompt [PAGE 1] engineering, targeted fine-tuning and RAG to enhance output [PAGE 1] quality. Evaluation was conducted using manual and LLM-as-"
-    },
-    "methodology": {
-      "chunk_count": 6,
-      "start_page": 1,
-      "preview": "[PAGE 1] a-judge approach. Results show significant improvements with [PAGE 1] prompt engineering: LLaMA-3.2-3B improved from 38.78% to [PAGE 1] 64.19%, while Mistral-7B improved from 41.84% to 70.05%. [PAGE 1] Fine-tuning further raised Mistral-7B performance to 68.11%. [PAGE 1] Still, the accuracy is not acceptable in such a sensitive field. [PAGE 1] Hence, we implemented a RAG pipeline to provide context [PAGE 1] from authentic religious sources. Our research found Retrieval [PAGE 1] Augmented Generation(RAG) difficult due to several challenges. [PAGE 1] As a result RAG slightly improved accuracy, which is far behind [PAGE 1] approaches and highlighting the importance of standardized [PAGE 1] datasets. [PAGE 1] Beyond the Qur’an, Hadith-focused QA systems have also [PAGE 1] emerged. Abdi et al. proposed semantic similarity-based re- [PAGE 1] trieval methods for Hadith, addressing the linguistic and con- [PAGE 1] textual mismatch between user queries and textual evidence."
-    },
-    "results": {
-      "chunk_count": 17,
-      "start_page": 1,
-      "preview": "[PAGE 1] our expectation. These findings highlight the situation of domain- [PAGE 1] specific adaptation of LLMs. It also shows the potential for [PAGE 1] improvement and further research on such sensitive contexts [PAGE 1] where trustworthy responses are critical. [PAGE 1] Index Terms —Large Language Models, Islamic Question [PAGE 1] Evaluation, [PAGE 1] Religious [PAGE 1] NLP, [PAGE 1] Retrieval [PAGE 1] Augmented [PAGE 1] Genera- [PAGE 1] tion(RAG), LLM-as-Judge [PAGE 1] I. I NTRODUCTION [PAGE 1] Large Language Models (LLMs) such as Gemini, GPT- [PAGE 1] 4, and other transformer-based systems have revolutionized [PAGE 1] information access and problem solving across numerous [PAGE 1] domains. These models demonstrate impressive fluency and [PAGE 1] reasoning capabilities when applied to general knowledge, yet [PAGE 1] their reliability diminishes in highly specialized domains."
-    },
-    "introduction": {
-      "chunk_count": 6,
-      "start_page": 1,
-      "preview": "[PAGE 1] The introduction of LLMs has shifted the paradigm toward [PAGE 1] generation-based answers, but challenges remain. Rizqulah et [PAGE 1] al. stressed that models like ChatGPT often fail in Islamic QA [PAGE 1] due to interpretive errors, proposing domain-specific datasets [PAGE 1] such as QASiNa. AbuBakar et al. identified persistent Anti- [PAGE 1] Muslim bias in modern SOTA models in their responses. [PAGE 1] Meanwhile, FatwaSet provides a corpus for broader religious [PAGE 1] NLP tasks. [PAGE 1] on Islamic datasets remain sparse. Our work fills this gap by [PAGE 1] systematically benchmarking LLMs on a large curated dataset, [PAGE 1] applying prompt engineering, fine-tuning and RAG. [PAGE 2] III. M ETHODOLOGY [PAGE 2] A."
+      "preview": "[PAGE 1] Evaluating and Enhancing Large Language Models [PAGE 1] for Islamic Question Answering [PAGE 1] Md. Naimul Haque, Mostahid Hasan Fahim, Md. Minhajul Haque, Md. Fuad Al Amin, [PAGE 1] Dr. M. Shahidur Rahman, Dr. Mohammad Reza Selim, Md. Ataullha Saim [PAGE 1] Department of Computer Science and Engineering, [PAGE 1] Shahjalal University of Science and Technology (SUST), Sylhet, Bangladesh [PAGE 1] Email: naimul@example.com, fahim@example.com, selim@example.com [PAGE 1] Abstract —This paper evaluates the performance of large [PAGE 1] language models (LLMs) in the context of Islamic question [PAGE 1] answering, a specialized domain that requires both factual [PAGE 1] accuracy and cultural sensitivity. We investigate two models, [PAGE 1] Mistral-7B and LLaMA-3.2-3B, assessing their ability to answer [PAGE 1] multiple-choice and short-answer questions derived from a cu- [PAGE 1] rated dataset of 13,000 Islamic questions."
     }
   },
-  "total_chunks": 32,
+  "total_chunks": 30,
   "content_type": "application/pdf",
   "file_size": 160156
 }

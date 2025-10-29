@@ -1,0 +1,20 @@
+{
+  "status": "success",
+  "filename": "paper_5.pdf",
+  "metadata": { "title": "253 255..260", "author": "Unknown", "page_count": 7 },
+  "sections": {
+    "preamble": {
+      "chunk_count": 4,
+      "start_page": 1,
+      "preview": "[PAGE 1] Despite practical challenges, we are hopeful that [PAGE 1] informed discussions among policy-makers and the [PAGE 1] public about data and the capabilities of machine [PAGE 1] learning, will lead to insightful designs of programs [PAGE 1] and policies that can balance the goals of protecting [PAGE 1] privacy and ensuring fairness with those of reaping [PAGE 1] the benefits to scientific research and to individual [PAGE 1] and public health. Our commitments to privacy and [PAGE 1] fairness are evergreen, but our policy choices must [PAGE 1] adapt to advance them, and support new tech- [PAGE 1] niques for deepening our knowledge. [PAGE 1] (AAAI), Palo Alto, CA, 2014]. [PAGE 1] (AAAI, Palo Alto, CA, 2012). [PAGE 1] (Association for Computing Machinery, New York, 2013), [PAGE 1] Shut down Samaritans Radar; http://bit.ly/Samaritans-after. [PAGE 1] Opportunities, Preserving Values (White House, Washington, [PAGE 1] DC, 2014); http://1.usa.gov/1TSOhiG."
+    },
+    "references": {
+      "chunk_count": 61,
+      "start_page": 1,
+      "preview": "[PAGE 1] REFERENCES AND NOTES [PAGE 1] 1. [PAGE 1] M. De Choudhury, S. Counts, E. Horvitz, A. Hoff, in Proceedings [PAGE 1] of International Conference on Weblogs and Social Media [PAGE 1] [Association for the Advancement of Artificial Intelligence [PAGE 1] 2. [PAGE 1] J. S. Brownstein, C. C. Freifeld, L. C. Madoff, N. Engl. J. Med. [PAGE 1] 360 , 2153 – 2155 (2009). [PAGE 1] 3. [PAGE 1] G. Eysenbach, J. Med. Internet Res. 11 , e11 (2009). [PAGE 1] 4. [PAGE 1] D. A. Broniatowski, M. J. Paul, M. Dredze, PLOS ONE 8 , e83672 [PAGE 1] (2013). [PAGE 1] 5. [PAGE 1] A. Sadilek, H. Kautz, V. Silenzio, in Proceedings of the [PAGE 1] Twenty-Sixth AAAI Conference on Artificial Intelligence [PAGE 1] 6. [PAGE 1] M. De Choudhury, S. Counts, E. Horvitz, in Proceedings of the [PAGE 1] SIGCHI Conference on Human Factors in Computing Systems [PAGE 1] pp. 3267 – 3276. [PAGE 1] 7. [PAGE 1] R. W. White, R. Harpaz, N. H. Shah, W. DuMouchel, E. Horvitz, [PAGE 1] Clin. Pharmacol. Ther. 96 , 239 – 246 (2014)."
+    }
+  },
+  "total_chunks": 65,
+  "content_type": "application/pdf",
+  "file_size": 1433021
+}

@@ -29,15 +29,15 @@ class DocumentProcessor:
             ],
             "results": [
                 "Results",
+                "results and discussion",
                 "findings",
                 "analysis",
-                "results and discussion",
                 "outcomes",
-                "discussion",
-                "analysis and discussion",
-                "findings and discussion",
+                "analysis",
+                "findings",
             ],
             "conclusions": [
+                "discussion and conclusions",
                 "conclusions",
                 "conclusion",
                 "conclusion and future work",
@@ -168,6 +168,38 @@ class DocumentProcessor:
         return text.strip(), max_size
 
     # -------------------------------------------------------------------------
+    # Helper: check if text appears in a context that suggests it's a header
+    # -------------------------------------------------------------------------
+    def _is_likely_header_context(self, text: str, font_size: float, median_size: float) -> bool:
+        """Check if the text appears in a context that suggests it's a header"""
+        
+        # Very short text is more likely to be a header
+        if len(text.split()) <= 3:
+            return True
+            
+        # Text with numbering pattern is likely a header
+        if self._header_re.match(text):
+            return True
+            
+        # Larger font size suggests header
+        if median_size > 0 and font_size >= median_size * 1.3:
+            return True
+            
+        # Text that's all caps or title case might be a header
+        words = text.split()
+        if len(words) <= 6:
+            # Check if most words are capitalized (title case)
+            cap_ratio = sum(1 for word in words if word[0].isupper()) / len(words)
+            if cap_ratio >= 0.8:
+                return True
+                
+        # Text ending with colon often indicates a header
+        if text.strip().endswith(':'):
+            return True
+            
+        return False
+
+    # -------------------------------------------------------------------------
     # Helper: detect headers
     # -------------------------------------------------------------------------
     def _detect_header(
@@ -176,30 +208,52 @@ class DocumentProcessor:
         if not line_text:
             return None
 
-        lower = line_text.lower()
         # Skip metadata lines
+        lower = line_text.lower()
         if any(skip in lower for skip in self._skip_patterns):
+            return None
+
+        # Must be relatively short to be a header (not a paragraph)
+        if len(line_text) > 150 or len(line_text.split()) > 20:
+            return None
+
+        # First check if this text appears in a header-like context
+        if not self._is_likely_header_context(line_text, line_max_size, page_median_size):
+            # If it doesn't look like a header context, be extra strict
+            norm = self._strip_punct(line_text).lower()
+            
+            # Only allow exact matches for non-header-like contexts
+            for canonical, variants in self.section_aliases.items():
+                for variant in variants:
+                    if norm == variant:
+                        return canonical
             return None
 
         # Handle numbered headers (e.g., "2.1 Methods")
         match = self._header_re.match(line_text)
-        norm = (match.group("h") if match else line_text).lower()
-        norm = self._strip_punct(norm)
-
-        # Check against known section patterns
-        for canonical, variants in self.section_aliases.items():
-            for variant in variants:
-                if norm == variant or norm.startswith(variant + " ") or (variant in norm and len(norm) <= 80):
-                    return canonical
-
-        # Font-size heuristic for headers
-        if (page_median_size and 
-            line_max_size >= page_median_size * 1.25 and 
-            len(norm) <= 80):
+        if match:
+            header_text = match.group("h").lower()
+            norm = self._strip_punct(header_text)
+            
+            # For numbered headers, be more permissive
             for canonical, variants in self.section_aliases.items():
                 for variant in variants:
-                    if variant in norm:
+                    if norm == variant or norm.startswith(variant):
                         return canonical
+            return None
+
+        # For potential headers in header-like context
+        norm = self._strip_punct(line_text).lower()
+        
+        # Match exact or close variants
+        for canonical, variants in self.section_aliases.items():
+            for variant in variants:
+                # Exact match
+                if norm == variant:
+                    return canonical
+                # Starts with variant (e.g., "results and analysis")
+                if norm.startswith(variant + " ") and len(norm.split()) <= len(variant.split()) + 3:
+                    return canonical
 
         return None
 

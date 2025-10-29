@@ -8,34 +8,24 @@
   },
   "sections": {
     "preamble": {
-      "chunk_count": 6,
+      "chunk_count": 7,
       "start_page": 1,
       "preview": "[PAGE 1] Citation: Alshahrani, H.; Islam, N.; [PAGE 1] Syed, D.; Sulaiman, A.; Al Reshan, [PAGE 1] M.S.; Rajab, K.; Shaikh, A.; [PAGE 1] Shuja-Uddin, J.; Soomro, A. [PAGE 1] Sustainability in Blockchain: A [PAGE 1] Systematic Literature Review on [PAGE 1] Scalability and Power Consumption [PAGE 1] Issues. Energies 2023 , 16 , 1510. [PAGE 1] https://doi.org/10.3390/en16031510 [PAGE 1] Academic Editors: Larisa Ivascu, [PAGE 1] Muddassar Sarfraz and [PAGE 1] Muhammad Mohsin [PAGE 1] Received: 18 November 2022 [PAGE 1] Revised: 20 December 2022 [PAGE 1] Accepted: 1 February 2023 [PAGE 1] Published: 3 February 2023 [PAGE 1] Copyright: [PAGE 1] © 2023 by the authors. [PAGE 1] Licensee MDPI, Basel, Switzerland. [PAGE 1] This article is an open access article [PAGE 1] distributed [PAGE 1] under [PAGE 1] the [PAGE 1] terms [PAGE 1] and [PAGE 1] conditions of the Creative Commons [PAGE 1] Attribution (CC BY) license (https:// [PAGE 1] creativecommons.org/licenses/by/ [PAGE 1] 4.0/)."
     },
-    "abstract": {
-      "chunk_count": 2,
-      "start_page": 1,
-      "preview": "[PAGE 1] Abstract: Blockchain is a peer-to-peer trustless network that keeps records of digital assets without [PAGE 1] any central authority. With the passage of time, the sustainability issue of blockchain is rising. This [PAGE 1] paper discusses two major sustainability issues of blockchain: power consumption and scalability. [PAGE 1] It discusses the challenge of power consumption by analyzing various approaches to estimating [PAGE 1] power consumption in the literature. A case study of bitcoin is presented for this purpose. The study [PAGE 1] presents a review of the growing energy consumption of bitcoin along with a solution for immersion [PAGE 1] cooling in blockchain mining. The second challenge addressed in this research is scalability. With [PAGE 1] the increase in network size, scalability issues are also increasing as the number of transactions per [PAGE 1] second is decreasing. In other words, blockchain is observing low throughput with its increase in [PAGE 1] size."
-    },
     "introduction": {
-      "chunk_count": 7,
+      "chunk_count": 8,
       "start_page": 1,
       "preview": "[PAGE 1] 1. Introduction [PAGE 1] In the current world, centralized systems govern the majority of ﬁnancial transactions [PAGE 1] between people or businesses. In other cases, they can be managed by a third-party [PAGE 1] organization. In the case of a digital payment or transfer between two businesses, a bank or [PAGE 1] credit card vendor, for example, functions as a third party. All successful transactions are [PAGE 1] paid for by the client ﬁrms. A third-party ﬁrm handles and manages practically all of the [PAGE 1] interaction in the online process in this one-size-ﬁts-all approach. This approach obviously [PAGE 1] requires the use of a third party to ensure the transaction’s security. A blockchain, on the [PAGE 1] other hand, is a widely dispersed and securely managed peer-to-peer network where no [PAGE 1] third party is necessary to handle information and trust between network users. [PAGE 1] Blockchain technology is a cutting-edge concept with a promising future."
     },
     "methodology": {
-      "chunk_count": 55,
+      "chunk_count": 70,
       "start_page": 3,
-      "preview": "[PAGE 3] research methodology. Section 3 explores the background study. Section 4 discusses a [PAGE 3] systematic literature review on the power consumption issue. Section 5 offers a discussion [PAGE 3] on the scalability problem. Finally, Section 6 concludes and identiﬁes the future directions. [PAGE 3] 2. Research Methodology [PAGE 3] The approach employed in this research, research benchmark, data sources, and [PAGE 3] investigation parameters used in the research are covered in this section. [PAGE 3] 2.1. Research Questions [PAGE 3] The following are the main research questions that are explored and eventually ana- [PAGE 3] lyzed in our research study: [PAGE 3] RQ1: What is the main concept of blockchain and cryptocurrency? [PAGE 3] One of the research objectives is to elaborate on the basic concept of blockchain and [PAGE 3] cryptocurrency."
-    },
-    "results": {
-      "chunk_count": 17,
-      "start_page": 10,
-      "preview": "[PAGE 10] 4.12–4.73 TWh/year. Imran [ 31 ], in his discussion of Bitcoin Mining’s Economic Beneﬁts, [PAGE 10] proposes that the mining process could aid in energy redistribution and the utilization of [PAGE 10] renewable energy sources. However, there are presently no realistic methodologies for [PAGE 10] estimating cryptocurrency mining electricity use. The only concrete statistic is the absolute [PAGE 10] minimum energy consumption calculated by multiplying the network hash rate by the [PAGE 10] most optimal miner’s energy efﬁciency. From 5 June 2020 to 4 June 2021, the total network [PAGE 10] hash rate of Bitcoin (as shown in Figure 9 ) was around 151.415 million TH/s [ 32 ]. [PAGE 10] However, because of the ability to gather and manage resources, research, and invest- [PAGE 10] ments have begun to employ blockchain to generate renewable power [ 33 ]."
+      "preview": "[PAGE 3] 2. Research Methodology [PAGE 3] The approach employed in this research, research benchmark, data sources, and [PAGE 3] investigation parameters used in the research are covered in this section. [PAGE 3] 2.1. Research Questions [PAGE 3] The following are the main research questions that are explored and eventually ana- [PAGE 3] lyzed in our research study: [PAGE 3] RQ1: What is the main concept of blockchain and cryptocurrency? [PAGE 3] One of the research objectives is to elaborate on the basic concept of blockchain and [PAGE 3] cryptocurrency. Therefore, the purpose of RQ1 is to present the details regarding the [PAGE 3] concept and history behind blockchain and cryptocurrency and to make its origin and [PAGE 3] implementation clear. [PAGE 3] RQ2: How does blockchain technology make life easier for consumers worldwide [PAGE 3] by mining?"
     },
     "conclusions": {
-      "chunk_count": 2,
-      "start_page": 11,
-      "preview": "[PAGE 11] summary of the conducted survey on the bases of Bitcoin energy consumption is presented [PAGE 11] in Table 3 . The summary of the characteristics of currently available energy-efﬁcient [PAGE 17] 22.318 percent, and space-saving for compressed summary blocks is 78.104 percent. [PAGE 17] By enabling data storage to be accessible, decentralized, and unchangeable, blockchains [PAGE 17] have revolutionized storage space. Public blockchain technologies, such as the one used by [PAGE 17] Bitcoin, face scaling problems since their blockchains are so big and are getting bigger. Block [PAGE 17] summarizing, a technique for lowering blockchain memory consumption in setups with [PAGE 17] transferable transactions is presented in this article. With the described method, data can [PAGE 17] be stored in a way that is accessible to light nodes with few resources."
+      "chunk_count": 4,
+      "start_page": 20,
+      "preview": "[PAGE 20] 6. Conclusions and Future Work [PAGE 20] This paper investigates the power consumption issues and scalability problems in [PAGE 20] the blockchain. A systematic literature review is presented. The approaches for scalabil- [PAGE 20] ity proposed in the literature have been classiﬁed as protocol-based approaches, layered [PAGE 20] approaches, sharding-based approaches, approaches based on compression, and miscella- [PAGE 20] neous approaches. The paper also proposed immersion cooling as a solution to improve [PAGE 20] power consumption. Immersion cooling is a much more efﬁcient cooling methodology. [PAGE 20] By using the non-conductive ﬂuid, one can have best-in-class power density coupled [PAGE 20] with best-in-class energy efﬁciency. Ultimately the compactness of hardware leads to a [PAGE 20] simpliﬁed design. [PAGE 20] The cooling technology is particularly important to Bitcoin mining because of how [PAGE 20] much energy it requires to perform it computationally."
     },
     "references": {
       "chunk_count": 21,
