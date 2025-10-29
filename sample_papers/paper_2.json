@@ -1,0 +1,36 @@
+{
+  "status": "success",
+  "filename": "paper_2.pdf",
+  "metadata": {
+    "title": "We need a broader debate on the sustainability of blockchain",
+    "author": "Alexander Rieger",
+    "subject": "Joule, 6 (2022) 1137-1141. doi:10.1016/j.joule.2022.04.013",
+    "keywords": "",
+    "page_count": 8
+  },
+  "sections": {
+    "preamble": {
+      "chunk_count": 11,
+      "start_page": 1,
+      "preview": "[PAGE 1] Commentary [PAGE 1] We need a broader debate [PAGE 1] on the sustainability [PAGE 1] of blockchain [PAGE 1] Alexander Rieger, 1, * Tamara Roth, 1,2 Johannes Sedlmeir, 3,4 [PAGE 1] and Gilbert"
+    },
+    "discussion": {
+      "chunk_count": 18,
+      "start_page": 1,
+      "preview": "[PAGE 1] that may well add to sustainability. [PAGE 1] Overall, we aim to provide a clearer pic- [PAGE 1] ture of the energy needs of different [PAGE 1] blockchains and help to identify areas [PAGE 1]"
+    },
+    "conclusion": {
+      "chunk_count": 12,
+      "start_page": 4,
+      "preview": "[PAGE 4] Given the broad range of blockchains [PAGE 4] beyond PoW, we argue for a more [PAGE 4] differentiated debate about the sus- [PAGE 4] tainability of blockchain technology. [PAGE 4] We particul"
+    },
+    "references": {
+      "chunk_count": 1,
+      "start_page": 8,
+      "preview": "[PAGE 8] 1. [PAGE 8] 2. [PAGE 8] Benchmarking Blockchains. Proceedings of the 54th Hawaii International Conference [PAGE 8] 3. [PAGE 8] power-consumption-c9745e347959 (2018). [PAGE 8] 4. [PAGE 8] Proo"
+    }
+  },
+  "total_chunks": 42,
+  "content_type": "application/pdf",
+  "file_size": 747892
+}
