@@ -10,142 +10,47 @@
   },
   "sections": {
     "preamble": {
+      "chunk_count": 16,
+      "start_page": 1,
+      "preview": "[PAGE 1] Citation: Alshahrani, H.; Islam, N.; [PAGE 1] Syed, D.; Sulaiman, A.; Al Reshan, [PAGE 1] M.S.; Rajab, K.; Shaikh, A.; [PAGE 1] Shuja-Uddin, J.; Soomro, A. [PAGE 1] Sustainability in Blockchain: A [PAGE 1] Systematic Literature Review on [PAGE 1] Scalability and Power Consumption [PAGE 1] Issues. Energies 2023 , 16 , 1510. [PAGE 1] https://doi.org/10.3390/en16031510 [PAGE 1] Academic Editors: Larisa Ivascu, [PAGE 1] Muddassar Sarfraz and [PAGE 1] Muhammad Mohsin [PAGE 1] Received: 18 November 2022 [PAGE 1] Revised: 20 December 2022 [PAGE 1] Accepted: 1 February 2023 [PAGE 1] Published: 3 February 2023 [PAGE 1] Copyright: [PAGE 1] © 2023 by the authors. [PAGE 1] Licensee MDPI, Basel, Switzerland. [PAGE 1] This article is an open access article [PAGE 1] distributed [PAGE 1] under [PAGE 1] the [PAGE 1] terms [PAGE 1] and [PAGE 1] conditions of the Creative Commons [PAGE 1] Attribution (CC BY) license (https:// [PAGE 1] creativecommons.org/licenses/by/ [PAGE 1] 4.0/)."
+    },
+    "abstract": {
       "chunk_count": 2,
       "start_page": 1,
-      "preview": "Citation: Alshahrani, H.; Islam, N.; Syed, D.; Sulaiman, A.; Al Reshan, M.S.; Rajab, K.; Shaikh, A.; Shuja-Uddin, J.; Soomro, A. Sustainability in Blockchain: A Systematic Literature Review on Scalability and Power Consumption Issues. Energies 2023 , 16 , 1510. https://doi.org/10.3390/en16031510 Academic Editors: Larisa Ivascu, Muddassar Sarfraz and Muhammad Mohsin Received: 18 November 2022 Revised: 20 December 2022 Accepted: 1 February 2023 Published: 3 February 2023 Copyright: © 2023 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https:// creativecommons.org/licenses/by/ 4.0/)."
+      "preview": "[PAGE 1] Abstract: Blockchain is a peer-to-peer trustless network that keeps records of digital assets without [PAGE 1] any central authority. With the passage of time, the sustainability issue of blockchain is rising. This [PAGE 1] paper discusses two major sustainability issues of blockchain: power consumption and scalability. [PAGE 1] It discusses the challenge of power consumption by analyzing various approaches to estimating [PAGE 1] power consumption in the literature. A case study of bitcoin is presented for this purpose. The study [PAGE 1] presents a review of the growing energy consumption of bitcoin along with a solution for immersion [PAGE 1] cooling in blockchain mining. The second challenge addressed in this research is scalability. With [PAGE 1] the increase in network size, scalability issues are also increasing as the number of transactions per [PAGE 1] second is decreasing. In other words, blockchain is observing low throughput with its increase in [PAGE 1] size."
     },
-    "abstract:": {
-      "chunk_count": 2,
+    "introduction": {
+      "chunk_count": 8,
       "start_page": 1,
-      "preview": "Blockchain is a peer-to-peer trustless network that keeps records of digital assets without any central authority. With the passage of time, the sustainability issue of blockchain is rising. This paper discusses two major sustainability issues of blockchain: power consumption and scalability. It discusses the challenge of power consumption by analyzing various approaches to estimating power consumption in the literature. A case study of bitcoin is presented for this purpose. The study presents a review of the growing energy consumption of bitcoin along with a solution for immersion cooling in blockchain mining. The second challenge addressed in this research is scalability. With the increase in network size, scalability issues are also increasing as the number of transactions per second is decreasing. In other words, blockchain is observing low throughput with its increase in size. The paper discusses research studies and techniques proposed in the literature."
+      "preview": "[PAGE 1] 1. Introduction [PAGE 1] In the current world, centralized systems govern the majority of ﬁnancial transactions [PAGE 1] between people or businesses. In other cases, they can be managed by a third-party [PAGE 1] organization. In the case of a digital payment or transfer between two businesses, a bank or [PAGE 1] credit card vendor, for example, functions as a third party. All successful transactions are [PAGE 1] paid for by the client ﬁrms. A third-party ﬁrm handles and manages practically all of the [PAGE 1] interaction in the online process in this one-size-ﬁts-all approach. This approach obviously [PAGE 1] requires the use of a third party to ensure the transaction’s security. A blockchain, on the [PAGE 1] other hand, is a widely dispersed and securely managed peer-to-peer network where no [PAGE 1] third party is necessary to handle information and trust between network users. [PAGE 1] Blockchain technology is a cutting-edge concept with a promising future."
     },
-    "1. introduction": {
-      "chunk_count": 3,
-      "start_page": 1,
-      "preview": "In the current world, centralized systems govern the majority of ﬁnancial transactions between people or businesses. In other cases, they can be managed by a third-party organization. In the case of a digital payment or transfer between two businesses, a bank or credit card vendor, for example, functions as a third party. All successful transactions are paid for by the client ﬁrms. A third-party ﬁrm handles and manages practically all of the interaction in the online process in this one-size-ﬁts-all approach. This approach obviously requires the use of a third party to ensure the transaction’s security. A blockchain, on the other hand, is a widely dispersed and securely managed peer-to-peer network where no third party is necessary to handle information and trust between network users. Blockchain technology is a cutting-edge concept with a promising future. Haber and Stornetta introduced blockchain, and Satoshi Namakoto introduced the Bitcoin system in 2008, which drew much attention."
-    },
-    "to present the summarized results achieved by adopting different strategies to resolve": {
-      "chunk_count": 3,
-      "start_page": 2,
-      "preview": "the challenge of scalability in blockchain technology. The major contribution of this research is to provide a systematic literature review on sustainability challenges in the blockchain. There are two direct contributions to this study. The ﬁrst contribution of this study is to highlight the energy consumption estimations in blockchain and propose a solution based on the current circumstances. For this, we use the data obtained from different real-time sites to estimate Bitcoin’s rise in power consumption. Cooling and IT hardware losses have a signiﬁcant impact, yet they have been generally ignored in earlier research. Prior studies, such as Krause et al. [ 3 ], which make projections about upcoming carbon emissions or compare bitcoin and metal mining, are based on basic energy consumption estimations and lack empirical grounding [ 4 , 5 ]. The second part of this paper examines the scalability problem (second contribution)."
-    },
-    "discussions, the contribution of this research is to provide a systematic literature review on": {
-      "chunk_count": 1,
-      "start_page": 2,
-      "preview": "sustainability challenges in blockchain comprising: # A review of the energy consumption challenge and proposing suggestions for energy conservation; # Analyzing scalability challenges in blockchain, providing a taxonomy and an updated account of research conducted in this domain. It is to be noted that very few studies in the past have attempted to analyze the sustainability challenge in this way, and only a few have provided a taxonomy on the scalability challenge. Energies 2023 , 16 , 1510 3 of 24 The rest of the sections of the paper is structured as follows. Section 2 presents the"
-    },
-    "research methodology. section": {
-      "chunk_count": 1,
+    "methodology": {
+      "chunk_count": 53,
       "start_page": 3,
-      "preview": "3 explores the background study. Section 4 discusses a systematic literature review on the power consumption issue. Section 5"
+      "preview": "[PAGE 3] 2. Research Methodology [PAGE 3] The approach employed in this research, research benchmark, data sources, and [PAGE 3] investigation parameters used in the research are covered in this section. [PAGE 3] The following are the main research questions that are explored and eventually ana- [PAGE 3] lyzed in our research study: [PAGE 3] RQ1: What is the main concept of blockchain and cryptocurrency? [PAGE 3] One of the research objectives is to elaborate on the basic concept of blockchain and [PAGE 3] cryptocurrency. Therefore, the purpose of RQ1 is to present the details regarding the [PAGE 3] concept and history behind blockchain and cryptocurrency and to make its origin and [PAGE 3] implementation clear. [PAGE 3] RQ2: How does blockchain technology make life easier for consumers worldwide [PAGE 3] by mining?"
     },
-    "offers a discussion": {
-      "chunk_count": 1,
-      "start_page": 3,
-      "preview": "on the scalability problem. Finally, Section 6 concludes and identiﬁes the future directions."
-    },
-    "2. research methodology": {
-      "chunk_count": 2,
-      "start_page": 3,
-      "preview": "The approach employed in this research, research benchmark, data sources, and investigation parameters used in the research are covered in this section. 2.1. Research Questions The following are the main research questions that are explored and eventually ana- lyzed in our research study: RQ1: What is the main concept of blockchain and cryptocurrency? One of the research objectives is to elaborate on the basic concept of blockchain and cryptocurrency. Therefore, the purpose of RQ1 is to present the details regarding the concept and history behind blockchain and cryptocurrency and to make its origin and implementation clear. RQ2: How does blockchain technology make life easier for consumers worldwide by mining? This research question is in the continuity of RQ1 to explain blockchain mining, in particular, as a paradigm for the computational effort that nodes in the network perform in the hopes of obtaining additional tokens."
-    },
-    "issue that is entangled with discussions about our society’s objectives. the inquiry into": {
-      "chunk_count": 6,
-      "start_page": 3,
-      "preview": "energy use seems reasonable in appearance. This study explains how Bitcoin effectively consumes energy and provides an estimation of its global electricity consumption. RQ4: What are the characteristics of currently available energy-efﬁcient approaches suggested for Bitcoin? This research paper objectiﬁes the characteristics of currently available energy-efﬁcient approaches that are suggested for Bitcoin by researchers. Therefore the main objective of RQ4 is to present the recent targeted techniques suggested by professional researchers along with the primary architectural properties and the type of reward for BTC miners to save energy. RQ5: What are the power use and power efﬁciency in recent Bitcoin ASIC Miner machines? Fields for bitcoin mining use a signiﬁcant amount of electricity. They spent 30% of the money they were given on power [ 6 ]. The strength of the power they receive has a signiﬁcant effect on the dependability, efﬁciency, and performance of mining ﬁelds."
-    },
-    "standards for inclusion and exclusion. after the initial abstract assessment, any research": {
-      "chunk_count": 12,
-      "start_page": 4,
-      "preview": "papers were left out. Following is a list of the primary criteria used for inclusion and exclusion (Table 2 ): Energies 2023 , 16 , 1510 5 of 24 17% 24% 15% 6% 1% 3% 1% 2% 13% 18% 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 Figure 1. The percentage of papers covered from 2013 to 2022. Figure 2. The percentage of research papers read from multiple sources. Table 2. Choice of inclusion and exclusion criterion. The Rules Followed for Selecting Research Content Inclusion • A research paper that is proposed by professionals. • A complete research study was performed in the sense of blockchain. • A complete study was performed in the sense of energy consumption. • Research outlining workable solutions to the blockchain scalability challenge. • A research study conducted in the context of sustainability in blockchain • A research paper is presented in the English Language. Exclusion • A research study that does not focus on blockchain challenges."
-    },
-    "between pools in an effort to lower the pools’ mining results and reduce the value of the": {
-      "chunk_count": 2,
-      "start_page": 9,
-      "preview": "blocks they have mined [ 24 ]. 4. Energy Consumption in Blockchain To analyze energy consumption, this paper uses Bitcoin as the case study, as the only known energy usage estimates available in the literature are for Bitcoin. When the ﬁrst block was created in 2009, Bitcoin’s network difﬁculty was just one. The goal of this challenge [ 25 ] was to determine the entire computational speed (as depicted in Figure 8 ). Energies 2023 , 16 , 1510 10 of 24 Figure 8. Difﬁculty with respect to Date and PHash/s [ 25 ]. 4.1. Approaches Used for Estimating Energy Consumption in Bitcoin Garcia et al. [ 26 ] estimated the fundamental worth of one Bitcoin using an approximate mining efﬁciency of 2 MH/J. Eventually, to improve mining efﬁciency, researchers created Application Speciﬁc Integrated Circuit miners. Hayes [ 19 ] gave an estimate of the cost of power in research. In 2017, it was almost identical to the trading value of Bitcoin with an estimated number."
-    },
-    "]. the conclusions of digiconomist were also": {
-      "chunk_count": 1,
+    "discussion": {
+      "chunk_count": 10,
       "start_page": 10,
-      "preview": "utilized in a June 2018 report by the Bank for International Settlements (BIS) [ 29 ]. According to the BIS research, seeking dispersed trust could result in an environmental calamity. Bevand [ 30 ] shows the network’s upper bounds for electricity consumption at 3250 PH/s, considering the worst and best-case scenarios for miners, respectively. However, according to his computations, the network’s energy utilization at 3250 PH/s is 470–540 MW or 4.12–4.73 TWh/year. Imran [ 31"
+      "preview": "[PAGE 10] 4.12–4.73 TWh/year. Imran [ 31 ], in his discussion of Bitcoin Mining’s Economic Beneﬁts, [PAGE 10] proposes that the mining process could aid in energy redistribution and the utilization of [PAGE 10] renewable energy sources. However, there are presently no realistic methodologies for [PAGE 10] estimating cryptocurrency mining electricity use. The only concrete statistic is the absolute [PAGE 10] minimum energy consumption calculated by multiplying the network hash rate by the [PAGE 10] most optimal miner’s energy efﬁciency. From 5 June 2020 to 4 June 2021, the total network [PAGE 10] hash rate of Bitcoin (as shown in Figure 9 ) was around 151.415 million TH/s [ 32 ]. [PAGE 10] However, because of the ability to gather and manage resources, research, and invest- [PAGE 10] ments have begun to employ blockchain to generate renewable power [ 33 ]. Groups in [PAGE 10] Europe, America, and Australia have worked."
     },
-    "], in his discussion of bitcoin mining’s economic beneﬁts,": {
-      "chunk_count": 3,
-      "start_page": 10,
-      "preview": "proposes that the mining process could aid in energy redistribution and the utilization of renewable energy sources. However, there are presently no realistic methodologies for estimating cryptocurrency mining electricity use. The only concrete statistic is the absolute minimum energy consumption calculated by multiplying the network hash rate by the most optimal miner’s energy efﬁciency. From 5 June 2020 to 4 June 2021, the total network hash rate of Bitcoin (as shown in Figure 9 ) was around 151.415 million TH/s [ 32 ]. However, because of the ability to gather and manage resources, research, and invest- ments have begun to employ blockchain to generate renewable power [ 33 ]. Groups in Europe, America, and Australia have worked. The estimated number of terra-hashes per sec., the Bitcoin network has been per- forming in the last 24 h on projects including renewable energy measurement, trade, and shipping utilizing digital currency. According to Adjeleian et al."
-    },
-    "4.2. discussions on literature for energy consumption": {
-      "chunk_count": 5,
+    "conclusion": {
+      "chunk_count": 2,
       "start_page": 11,
-      "preview": "To date, calculating the amount of electricity used by Bitcoin mining devices to perform all of those hash computations has been difﬁcult. Despite the fact that we can easily approximate the Bitcoin network’s total processing power, we have limited knowledge of the underpinning devices and their energy consumption. It is also impossible to count the number of nodes linked. Although the blockchain is expected to have roughly more Energies 2023 , 16 , 1510 12 of 24 than 11,000 linked nodes, each node can comprise single or multiple machines. Moreover, assessing the Bitcoin station’s usage of power based on the efﬁciency of various hardware has been a routine practice for years. Table 4. Characteristics of currently available energy-efﬁcient approaches suggested for Bitcoin [ 36 ]. Author(s) Targeted Technique Primary Architectural Characteristic Type of Gain or Reward for BTC Miners Puthal, D. et al."
+      "preview": "[PAGE 11] summary of the conducted survey on the bases of Bitcoin energy consumption is presented [PAGE 11] in Table 3 . The summary of the characteristics of currently available energy-efﬁcient [PAGE 17] 22.318 percent, and space-saving for compressed summary blocks is 78.104 percent. [PAGE 17] By enabling data storage to be accessible, decentralized, and unchangeable, blockchains [PAGE 17] have revolutionized storage space. Public blockchain technologies, such as the one used by [PAGE 17] Bitcoin, face scaling problems since their blockchains are so big and are getting bigger. Block [PAGE 17] summarizing, a technique for lowering blockchain memory consumption in setups with [PAGE 17] transferable transactions is presented in this article. With the described method, data can [PAGE 17] be stored in a way that is accessible to light nodes with few resources."
     },
-    "number of operations in cryptocurrencies dependent on pow results in a staggering value": {
-      "chunk_count": 1,
+    "results": {
+      "chunk_count": 7,
       "start_page": 13,
-      "preview": "of the energy being used for each contract: In the case of Bitcoin, a particular transaction would require some hundreds of kWh of electricity, which would be equivalent to the usage of a typical German household over the period of a few weeks or months. This"
-    },
-    "results in the sustainability of blockchain being frequently criticized. although the power": {
-      "chunk_count": 4,
-      "start_page": 13,
-      "preview": "consumption per operation is substantially reduced for other PoW-based cryptocurrencies, it is nevertheless orders of magnitude more energy-intensive than, for instance, a typical reservation in the banking system. Furthermore, since theoretically, the blocks may be indeﬁnitely bigger, it is crucial to recognize that the quantity of transactions executed has no impact on the overall network’s exploration and mining power usage. For PoW-based digital currencies, the statistic “energy consumption per transaction” must be strictly taken into account. However, considering how well Bitcoin and other existing PoW blockchains operate, its power usage can undoubtedly be viewed as unsustainable [ 44 ]. 4.3. Costs of Central Heating and Other Forms of Electricity Mining equipment that is gathered together in mining facilities accounts for the bulk of the entire Bitcoin network hash rate. In 2017, Hileman and Rauchs [ 45 ] conducted a study with 48 miners and found this to be true."
-    },
-    "results in longer transaction durations. scaling blockchains is a complicated task. first and": {
-      "chunk_count": 2,
-      "start_page": 14,
-      "preview": "foremost, the growing use of blockchains for high-demand services necessitates the devel- opment of solutions that can maintain a target throughput and latency as the frequency and volume of contacts increase [ 50 ]. Scalability continues to be a key challenge in the blockchain. Both Bitcoin and Ethereum face issues of low performance due to poor through- put, long transaction delays, and excessive energy usage. Several studies have provided systematic literature reviews on scalability in blockchain [ 51 ]. The authors of [ 52 ] covered several scalability difﬁculties with the Bitcoin and Ethereum blockchains, as well as new suggestions to address these issues, such as the lighting protocol, sharding, super quadratic sharding, and DPoS. This section presents an updated account of various approaches used for addressing scalability problems in the blockchain."
-    },
-    "applications. the results show that the internet of things (iot), which is used in sectors": {
-      "chunk_count": 11,
-      "start_page": 14,
-      "preview": "such as energy, banking, resource management, healthcare, education, and agriculture, will be the most popular blockchain technology [ 51 , 53 ]. Hazari and Mahmoud [ 54 ] suggest an approach that relies on parallel processing of mining to expedite the Proof of Work procedure. The objective is to prevent more than two miners from putting an equal amount of effort into ﬁnding a single block. The suggested approach comprises a procedure for selecting a manager, allocating tasks, and establishing rewards. This approach has been evaluated utilizing a range of possible circumstances by adjusting the level of difﬁculty and quantity of veriﬁers in a testing phase that has all the properties required to carry out Proof of Work for Bitcoin. However, structures still need improvements in order to be employed in electronic voting [ 55 ]. Pieroni et al."
-    },
-    "the authors used cloth to present the results of three pairs of simulations performed": {
-      "chunk_count": 14,
-      "start_page": 16,
-      "preview": "on a modern snapshot of the LN to shed light on the upcoming subjects. They started by investigating how hubs affect ON efﬁciency. The effectiveness of two different active and passive channel redistribution techniques was then assessed. Finally, they examined the Energies 2023 , 16 , 1510 17 of 24 LN’s performance under a typical payment channel network situation where only a few service-provider nodes accepted payments from other nodes in the network. The LN is resilient to hub withdrawal; our passive rebalancing strategy lowers transaction break- downs due to channel overbalancing by around one-fourth, and in the scenario involving service providers, a consistent amount of payments fails due to poorly balanced channels leading to the solution providers. Their research further demonstrates the advantages of the lightning network when hubs are eliminated as well as its disadvantages when dealing with service providers."
-    },
-    "5.7. discussion on approaches for scalability in blockchain": {
-      "chunk_count": 0,
-      "start_page": 19,
-      "preview": ""
-    },
-    "this research presents the techniques used and the results achieved by the research": {
-      "chunk_count": 2,
-      "start_page": 19,
-      "preview": "proposal. It can be seen that there have been various approaches proposed for scalability in the blockchain. This includes solutions based on new protocols or extending the inbuilt blockchain protocols. Then there are solutions that propose lightning-network-based techniques. There are a few layered-based approaches. Finally, sharding-based solutions are proposed. The advantage of sharding-based solutions is the horizontal scalability that can be achieved easily with more nodes becoming part of the network. As the number of nodes is increased, the sharding factor can be increased. The metric that is generally improved in scalability is the throughput of the transaction. However, it has been observed that the existing solutions have their own limitations. There needs to be more work required Energies 2023 , 16 , 1510 20 of 24 in the approaches for scalability to make the realization of the high-scale blockchain possible."
-    },
-    "6. conclusions and future work": {
-      "chunk_count": 1,
-      "start_page": 20,
-      "preview": "This paper investigates the power consumption issues and scalability problems in the blockchain. A systematic literature review is presented. The approaches for scalabil- ity proposed in the literature have been classiﬁed as protocol-based approaches, layered approaches, sharding-based approaches, approaches based on compression, and miscella- neous approaches. The paper also proposed immersion cooling as a solution to improve"
-    },
-    "power consumption. immersion cooling is a much more efﬁcient cooling methodology.": {
-      "chunk_count": 2,
-      "start_page": 20,
-      "preview": "By using the non-conductive ﬂuid, one can have best-in-class power density coupled with best-in-class energy efﬁciency. Ultimately the compactness of hardware leads to a simpliﬁed design. The cooling technology is particularly important to Bitcoin mining because of how much energy it requires to perform it computationally. The amount of energy that Bitcoin mining uses at present, every day, is about the same amount as some medium-size countries use in a day. It is certain that this energy will only increase. The proposed solution will make a potentially big impact on the carbon footprint of data centers throughout the world. This solution is proﬁtable not only for this time but also for the next decades. This solution will lead to a better future for electronic equipment cooling purposes for as many as possible. Future work can be conducted to employ the proposed solution of immersion cooling in a test environment and analyzes its efﬁcacy."
-    },
-    "conceptualization, h.a., n.i., d.s. and a.s. (adel sulaiman); methodology,": {
-      "chunk_count": 2,
-      "start_page": 20,
-      "preview": "M.S.A.R., K.R., A.S. (Asadullah Shaikh), J.S.-U. and A.S. (Aadar Soomro); software, H.A., N.I., D.S. and A.S. (Adel Sulaiman); validation, M.S.A.R., K.R., A.S. (Asadullah Shaikh), J.S.-U. and A.S. (Aadar Soomro); formal analysis, H.A. and N.I.; investigation, D.S. and A.S. (Adel Sulaiman); resources, M.S.A.R., K.R. and J.S.-U. and A.S. (Aadar Soomro); data curation, K.R., A.S. and M.S.A.R.; writing— original draft preparation, M H.A., N.I., D.S. and A.S. (Adel Sulaiman); writing—review and editing, M.S.A.R., K.R., A.S. (Asadullah Shaikh), J.S.-U. and A.S. (Aadar Soomro); supervision, A.S. (Asadullah Shaikh); project administration, K.R. and H.A.; funding acquisition, A.S. (Adel Sulaiman). All authors have read and agreed to the published version of the manuscript. Funding: The authors are thankful to the Deanship of Scientiﬁc Research at Najran University for funding this work under the National Research Priorities funding program grant code (NU/NRP/ SERC/11/32)."
+      "preview": "[PAGE 13] results in the sustainability of blockchain being frequently criticized. Although the power [PAGE 13] consumption per operation is substantially reduced for other PoW-based cryptocurrencies, [PAGE 13] it is nevertheless orders of magnitude more energy-intensive than, for instance, a typical [PAGE 13] reservation in the banking system. Furthermore, since theoretically, the blocks may be [PAGE 13] indeﬁnitely bigger, it is crucial to recognize that the quantity of transactions executed has [PAGE 13] no impact on the overall network’s exploration and mining power usage. For PoW-based [PAGE 13] digital currencies, the statistic “energy consumption per transaction” must be strictly taken [PAGE 13] into account. However, considering how well Bitcoin and other existing PoW blockchains [PAGE 13] operate, its power usage can undoubtedly be viewed as unsustainable [ 44 ]. [PAGE 13] 4.3."
     },
     "references": {
-      "chunk_count": 1,
+      "chunk_count": 14,
       "start_page": 20,
-      "preview": "1. Kwapie´n, J.; W ˛atorek, M.; Dro˙zd˙z, S. Cryptocurrency market consolidation in 2020–2021. Entropy 2021 , 23 , 1674. [ CrossRef ] [ PubMed ] 2. Yaga, D.; Mell, P.; Roby, N.; Scarfone, K. Blockchain technology overview. arXiv 2019 , arXiv:1906.11078. 3. Krause, M.J.; Tolaymat, T. Quantiﬁcation of energy and carbon costs for mining cryptocurrencies. Nat. Sustain. 2018 , 1 , 711–718. [ CrossRef ] 4. Mora, C.; Rollins, R.L.; Taladay, K.; Kantar, M.B.; Chock, M.K.; Shimada, M.; Franklin, E.C. Bitcoin emissions alone could push global warming above 2 C. Nat. Clim. Change 2018 , 8 , 931–933. [ CrossRef ] 5. Stoll, C.; Klaaßen, L.; Gallersdörfer, U. The carbon footprint of bitcoin. Joule 2019 , 3 , 1647–1661. [ CrossRef ] 6. An, J. Development of energy cooperation between Russia and China. Int. J. Energy Econ. Policy 2020 , 10 , 134–139. [ CrossRef ] 7. Narayanan, A.; Bonneau, J.; Felten, E.; Miller, A.; Goldfeder, S."
-    },
-    "bitcoin and cryptocurrency technologies: a comprehensive introduction": {
-      "chunk_count": 2,
-      "start_page": 20,
-      "preview": "; Princeton University Press: Princeton, NJ, USA, 2016. 8. De Vries, A. Bitcoin’s growing energy problem. Joule 2018 , 2 , 801–805. [ CrossRef ] 9. Blochain charts. Available online: https://www.blockchain.com/explorer/charts (accessed on 20 November 2022). 10. Bitcoin Market. Available online: https://markets.bitcoin.com/crypto/BTC/ (accessed on 1 June 2021). Energies 2023 , 16 , 1510 21 of 24 11. Worley, C.; Skjellum, A. Blockchain tradeoffs and challenges for current and emerging applications: Generalization, fragmentation, sidechains, and scalability. In Proceedings of the 2018 IEEE International Conference on Internet of Things (iThings) and IEEE Green Computing and Communications (GreenCom) and IEEE Cyber, Physical and Social Computing (CPSCom) and IEEE Smart Data (SmartData), Halifax, NS, Canada, 30 July–3 August 2018; IEEE: Piscataway Township, NJ, USA, 2018. 12. Sun, W.; Jin, H.; Jin, F.; Kong, L.; Peng, Y.; Dai, Z. Spatial analysis of global Bitcoin mining. Sci. Rep."
-    },
-    "understanding the blockchain economy: an introduction to institutional cryptoeconomics": {
-      "chunk_count": 19,
-      "start_page": 21,
-      "preview": "; Edward Elgar Publishing: Cheltenham, UK, 2019. 14. Fairley, P. Blockchain world-Feeding the blockchain beast if bitcoin ever does go mainstream, the electricity needed to sustain it will be enormous. IEEE Spectr. 2017 , 54 , 36–59. [ CrossRef ] 15. Fauzi, M.A.; Paiman, N.; Othman, Z. Bitcoin and cryptocurrency: Challenges, opportunities and future works. J. Asian Financ. Econ. Bus. 2020 , 7 , 695–704. [ CrossRef ] 16. Malla, T.B.; Bhattarai, A.; Parajuli, A.; Shrestha, A.; Chhetri, B.B.; Chapagain, K. Status, Challenges and Future Directions of Blockchain Technology in Power System: A State of Art Review. Energies 2022 , 15 , 8571. [ CrossRef ] 17. Böhme, R.; Christin, N.; Edelman, B.; Moore, T. Bitcoin: Economics, technology, and governance. J. Econ. Perspect. 2015 , 29 , 213–238. [ CrossRef ] 18. Kethineni, S.; Cao, Y.; Dodge, C. Use of bitcoin in darknet markets: Examining facilitative factors on bitcoin-related crimes. Am. J. Crim. Justice 2018 , 43 , 141–157. [ CrossRef ] 19."
+      "preview": "[PAGE 20] References [PAGE 20] 1. [PAGE 20] Kwapie´n, J.; W ˛atorek, M.; Dro˙zd˙z, S. Cryptocurrency market consolidation in 2020–2021. Entropy 2021 , 23 , 1674. [ CrossRef ] [PAGE 20] [ PubMed ] [PAGE 20] 2. [PAGE 20] Yaga, D.; Mell, P.; Roby, N.; Scarfone, K. Blockchain technology overview. arXiv 2019 , arXiv:1906.11078. [PAGE 20] 3. [PAGE 20] Krause, M.J.; Tolaymat, T. Quantiﬁcation of energy and carbon costs for mining cryptocurrencies. Nat. Sustain. 2018 , 1 , 711–718. [PAGE 20] [ CrossRef ] [PAGE 20] 4. [PAGE 20] Mora, C.; Rollins, R.L.; Taladay, K.; Kantar, M.B.; Chock, M.K.; Shimada, M.; Franklin, E.C. Bitcoin emissions alone could push [PAGE 20] 5. [PAGE 20] Stoll, C.; Klaaßen, L.; Gallersdörfer, U. The carbon footprint of bitcoin. Joule 2019 , 3 , 1647–1661. [ CrossRef ] [PAGE 20] 6. [PAGE 20] 7. [PAGE 20] Narayanan, A.; Bonneau, J.; Felten, E.; Miller, A.; Goldfeder, S. Bitcoin and Cryptocurrency Technologies: A Comprehensive Introduction ; [PAGE 20] 8. [PAGE 20] De Vries, A."
     }
   },
-  "total_chunks": 105,
+  "total_chunks": 112,
   "content_type": "application/pdf",
   "file_size": 3470416
 }
