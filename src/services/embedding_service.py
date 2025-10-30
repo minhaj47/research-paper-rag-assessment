@@ -5,5 +5,5 @@ class EmbeddingService:
         self.model = SentenceTransformer(model_name)
     
     def get_embeddings(self, text: str):
-        """Generate embeddings for the given text"""
-        return self.model.encode(text)
+        """Generate embeddings for the given text (normalized for cosine search)"""
+        return self.model.encode(text, normalize_embeddings=True)
