@@ -6,3 +6,5 @@ qdrant-client
 PyMuPDF
 python-dotenv
 ollama
+psycopg2-binary
+sqlalchemy

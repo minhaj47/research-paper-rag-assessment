@@ -2,10 +2,14 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams, PointStruct
 from typing import List, Dict, Any
 import uuid
+from src.config import QDRANT_HOST, QDRANT_PORT
 
 class QdrantDB:
-    def __init__(self, host: str = "localhost", port: int = 6333):
-        self.client = QdrantClient(host=host, port=port)
+    def __init__(self, host: str = None, port: int = None):
+        self.client = QdrantClient(
+            host=host or QDRANT_HOST, 
+            port=port or QDRANT_PORT
+        )
         self.collection_name = "research_papers"
         
     def create_collection(self, vector_size: int = 384):
