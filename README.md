@@ -52,79 +52,81 @@ A production-ready RAG (Retrieval-Augmented Generation) system that helps resear
 - ✅ **Docker Compose**: One-command setup for all services
 - ✅ **Query History & Analytics**: Track usage patterns and popular queries
 
-## 🚀 Quick Start
+## 🚀 Quick Start (One Command!)
 
 ### Prerequisites
 
-- Python 3.10+
 - Docker & Docker Compose
-- Ollama (for LLM)
+- Ollama (for LLM-powered answers) - **Required for query responses**
 
-### 1. Clone the Repository
+### 🎯 One-Command Setup
 
 ```bash
+# Clone the repository
 git clone https://github.com/YOUR_USERNAME/research-paper-rag-assessment.git
 cd research-paper-rag-assessment
+
+# Start everything with Docker Compose
+docker-compose up --build
 ```
 
-### 2. Start Docker Services
+That's it! This single command will:
+
+- ✅ Build the FastAPI application container
+- ✅ Start Qdrant vector database
+- ✅ Start PostgreSQL database
+- ✅ Initialize database tables
+- ✅ Start the API server on port 8000
+
+**Access the API**: http://localhost:8000/docs
+
+### 🤖 Step 2: Install Ollama for LLM Answers
+
+**Important**: Without Ollama, the system can upload and search papers, but cannot generate answers.
 
 ```bash
-docker-compose up -d
-```
-
-This starts:
-
-- **Qdrant** on port 6333 (vector database)
-- **PostgreSQL** on port 5432 (metadata storage)
-
-### 3. Install Dependencies
-
-```bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install packages
-pip install -r requirements.txt
-```
-
-### 4. Set Up Environment
-
-```bash
-# Copy environment template
-cp .env.example .env
-
-# Edit .env if needed (defaults work for local development)
-```
-
-### 5. Initialize Database
-
-```bash
-python src/init_db.py
-```
-
-### 6. Install and Start Ollama
-
-```bash
-# Install Ollama (if not already installed)
-# macOS/Linux:
+# Install Ollama (macOS/Linux)
 curl https://ollama.ai/install.sh | sh
 
-# Pull the LLM model
+# Pull the model
 ollama pull llama3:latest
 
-# Start Ollama (runs in background)
+# Start Ollama (keep this running)
 ollama serve
 ```
 
-### 7. Run the Application
+**Verify Ollama is running**:
 
 ```bash
-uvicorn src.main:app --reload --port 8000
+curl http://localhost:11434/api/version
 ```
 
-The API will be available at `http://localhost:8000`
+> **Note**: For detailed Ollama setup and troubleshooting, see [OLLAMA_SETUP.md](OLLAMA_SETUP.md)
+
+### Alternative: Local Development Setup
+
+If you prefer to run the API outside Docker:
+
+```bash
+# 1. Start only the databases
+docker-compose up -d qdrant postgres
+
+# 2. Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Create .env file
+cp .env.example .env
+
+# 5. Initialize database
+python src/init_db.py
+
+# 6. Run the API
+uvicorn src.main:app --reload --port 8000
+```
 
 ## 📚 API Documentation
 
@@ -332,20 +334,38 @@ LLM_MODEL=llama3:latest
 ## 🐳 Docker Commands
 
 ```bash
-# Start services
+# Start all services (build if needed)
+docker-compose up --build
+
+# Start services in background
 docker-compose up -d
 
 # Stop services
 docker-compose down
 
-# View logs
+# View logs (all services)
 docker-compose logs -f
 
-# Restart services
-docker-compose restart
+# View logs for specific service
+docker-compose logs -f api
+docker-compose logs -f postgres
+docker-compose logs -f qdrant
 
-# Remove volumes (clean slate)
+# Restart specific service
+docker-compose restart api
+
+# Rebuild and restart API only
+docker-compose up -d --build api
+
+# Stop and remove everything (including volumes)
 docker-compose down -v
+
+# Check service status
+docker-compose ps
+
+# Execute command in running container
+docker-compose exec api python src/init_db.py
+docker-compose exec postgres psql -U rag_user -d research_papers_db
 ```
 
 ## 📊 Database Schema

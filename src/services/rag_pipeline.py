@@ -4,12 +4,17 @@ from .embedding_service import EmbeddingService
 from .qdrant_client import QdrantDB
 import asyncio
 import ollama
+import os
 
 class RAGPipeline:
     def __init__(self):
         self.document_processor = DocumentProcessor()
         self.embedding_service = EmbeddingService()
         self.vector_store = QdrantDB()
+        
+        # Configure Ollama client
+        ollama_host = os.getenv('OLLAMA_HOST', 'http://localhost:11434')
+        self.ollama_client = ollama.Client(host=ollama_host)
         
         # Initialize Qdrant collection
         self.vector_store.create_collection()
@@ -136,7 +141,7 @@ class RAGPipeline:
     def _generate_llm_response(self, prompt: str) -> str:
         """Generate response using Ollama"""
         try:
-            response = ollama.chat(
+            response = self.ollama_client.chat(
                 model='llama3:latest',  
                 messages=[
                     {
@@ -147,4 +152,11 @@ class RAGPipeline:
             )
             return response['message']['content']
         except Exception as e:
-            return f"Error generating response: {str(e)}"
+            error_msg = str(e)
+            if "connection" in error_msg.lower() or "connect" in error_msg.lower():
+                return (
+                    "Error generating response: Failed to connect to Ollama. "
+                    "Please check that Ollama is downloaded, running and accessible. "
+                    "https://ollama.com/download"
+                )
+            return f"Error generating response: {error_msg}"

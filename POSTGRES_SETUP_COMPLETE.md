@@ -43,20 +43,27 @@ I've successfully set up PostgreSQL in your Research Paper RAG system and integr
 
 ### 6. **Helper Scripts**
 
-- ✅ `setup.sh` - Automated setup script
-- ✅ `test_api.sh` - API testing script
-- ✅ `src/init_db.py` - Database initialization
+- ✅ `start.sh` - One-command Docker setup script
+- ✅ `Dockerfile` - API container configuration
+- ✅ `.dockerignore` - Docker build optimization
+- ✅ `src/init_db.py` - Database initialization (runs automatically)
 
 ## 🚀 Quick Start
 
 ```bash
-# Already running:
-✅ Docker services (Qdrant + PostgreSQL)
-✅ Database tables created
+# One command to start everything:
+docker-compose up --build
 
-# To start the application:
-uvicorn src.main:app --reload --port 8000
+# Or use the start script:
+./start.sh
 ```
+
+This will:
+✅ Build and start the FastAPI application
+✅ Start Qdrant (vector database)
+✅ Start PostgreSQL (metadata storage)
+✅ Initialize database tables automatically
+✅ Start API on http://localhost:8000
 
 ## 📊 What Happens Now
 
@@ -103,15 +110,15 @@ uvicorn src.main:app --reload --port 8000
 ### Created:
 
 - `.env.example` - Environment template
-- `.env` - Local configuration
+- `Dockerfile` - FastAPI container configuration
+- `.dockerignore` - Docker build optimization
 - `src/models/database.py` - SQLAlchemy models
 - `src/services/database_service.py` - Database operations
-- `src/init_db.py` - DB initialization
+- `src/init_db.py` - DB initialization (auto-runs on startup)
 - `README.md` - Complete documentation
 - `SETUP_SUMMARY.md` - Setup summary
 - `POSTGRES_SETUP_COMPLETE.md` - This file
-- `setup.sh` - Automated setup script
-- `test_api.sh` - API testing script
+- `start.sh` - One-command setup script
 
 ### Modified:
 
@@ -124,24 +131,26 @@ uvicorn src.main:app --reload --port 8000
 ## 🧪 Test It!
 
 ```bash
-# 1. Start the application
-uvicorn src.main:app --reload --port 8000
+# Everything starts with one command:
+docker-compose up --build
 
-# 2. In another terminal, upload a paper
+# Wait for services to be ready (about 30 seconds), then test:
+
+# 1. Upload a paper
 curl -X POST "http://localhost:8000/api/upload" \
   -F "file=@sample_papers/paper_1.pdf"
 
-# 3. Check papers in database
+# 2. Check papers in database
 curl "http://localhost:8000/api/papers"
 
-# 4. Query the system
+# 3. Query the system
 curl -X POST "http://localhost:8000/api/query?query=What%20is%20this%20about?&top_k=5"
 
-# 5. Check query history
+# 4. Check query history
 curl "http://localhost:8000/api/queries/history"
 
-# Or use the test script:
-./test_api.sh
+# 5. Visit interactive API docs
+open http://localhost:8000/docs
 ```
 
 ## 🔍 Verify Database

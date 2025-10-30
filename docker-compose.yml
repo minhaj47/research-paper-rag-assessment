@@ -1,14 +1,21 @@
 version: "3.8"
+
 services:
+  # Vector Database
   qdrant:
     image: qdrant/qdrant
+    container_name: rag-qdrant
     ports:
       - "6333:6333"
     volumes:
       - qdrant_storage:/qdrant/storage
+    networks:
+      - rag-network
 
+  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
+    container_name: rag-postgres
     environment:
       POSTGRES_USER: rag_user
       POSTGRES_PASSWORD: rag_password
@@ -17,11 +24,47 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - rag-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U rag_user -d research_papers_db"]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
+
+  # FastAPI Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://rag_user:rag_password@postgres:5432/research_papers_db
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+      - LLM_MODEL=llama3:latest
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    volumes:
+      - ./sample_papers:/app/sample_papers
+      - ./vector_store:/app/vector_store
+    networks:
+      - rag-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  rag-network:
+    driver: bridge
 
 volumes:
   qdrant_storage:
