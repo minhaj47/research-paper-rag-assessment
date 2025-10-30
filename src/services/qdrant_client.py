@@ -43,7 +43,7 @@ class QdrantDB:
         )
         return len(points)
     
-    def search_similar(self, query_embedding: List[float], limit: int = 5, score_threshold: float = 0.5):
+    def search_similar(self, query_embedding: List[float], limit: int = 5, score_threshold: float = 0.3):
         """Search for similar chunks"""
         results = self.client.search(
             collection_name=self.collection_name,

@@ -3,6 +3,7 @@ from .document_processor import DocumentProcessor
 from .embedding_service import EmbeddingService
 from .qdrant_client import QdrantDB
 import asyncio
+import ollama
 
 class RAGPipeline:
     def __init__(self):
@@ -97,9 +98,53 @@ class RAGPipeline:
                 "relevance_score": result.score
             })
         
+        # Prepare context for LLM
+        context = "\n\n".join([
+            f"[Source {i+1} - {chunk['metadata']['title']}, Section: {chunk['metadata']['section']}, Page: {chunk['metadata']['page']}]\n{chunk['text']}"
+            for i, chunk in enumerate(context_chunks)
+        ])
+        
+        # Generate answer using Ollama
+        prompt = f"""You are a research paper assistant. Answer the question based on the provided context from research papers.
+
+                    Context:
+                    {context}
+
+                    Question: {query}
+
+                    Instructions:
+                    - Answer based only on the provided context
+                    - Be specific and cite relevant sections
+                    - If the answer cannot be found in the context, say so clearly
+                    - Keep your answer concise and accurate
+
+                    Answer:"""
+        
+        # Call Ollama (runs in thread to avoid blocking)
+        llm_response = await asyncio.to_thread(
+            self._generate_llm_response, prompt
+        )
+        
         return {
             "query": query,
+            "answer": llm_response,
             "context_chunks": context_chunks,
             "citations": citations,
             "total_results": len(results)
         }
+    
+    def _generate_llm_response(self, prompt: str) -> str:
+        """Generate response using Ollama"""
+        try:
+            response = ollama.chat(
+                model='llama3:latest',  
+                messages=[
+                    {
+                        'role': 'user',
+                        'content': prompt
+                    }
+                ]
+            )
+            return response['message']['content']
+        except Exception as e:
+            return f"Error generating response: {str(e)}"
