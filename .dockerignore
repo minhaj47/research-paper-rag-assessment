@@ -1,47 +1,27 @@
-# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-venv/
 env/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Git
+venv/
+.venv/
+.env
 .git/
 .gitignore
-
-# Documentation
 *.md
 !README.md
-
-# Test files
-tests/
-test_*.sh
-
-# Logs
-*.log
-
-# Environment
-.env
-.env.local
-
-# Docker
-Dockerfile
-docker-compose.yml
-.dockerignore
-
-# Unnecessary files
-setup.sh
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.DS_Store
+uploads/*
+!uploads/.gitkeep
+logs/*
+!logs/.gitkeep
+temp/*
+vector_store/*
+!vector_store/.gitkeep

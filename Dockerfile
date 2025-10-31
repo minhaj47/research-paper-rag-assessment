@@ -1,39 +1,31 @@
-# Use Python 3.11 slim image
-FROM python:3.11-slim
+FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
+# Install minimal system dependencies (only what's needed)
+# This layer is cached unless system dependencies change
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    wget \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Copy and install Python dependencies FIRST (for better caching)
+# This layer is cached unless requirements.txt changes
 COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Create necessary directories
+RUN mkdir -p uploads logs vector_store temp
 
-# Copy application code
-COPY . .
+# Copy application code LAST (changes most frequently)
+# This layer is rebuilt only when source code changes
+COPY src/ ./src/
 
-# Create directory for vector store
-RUN mkdir -p vector_store
-
-# Expose port
 EXPOSE 8000
-
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:8000/docs || exit 1
+    CMD curl -f http://localhost:8000/health || exit 1
 
-# Run database initialization and start the application
-CMD python src/init_db.py && \
-    uvicorn src.main:app --host 0.0.0.0 --port 8000
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

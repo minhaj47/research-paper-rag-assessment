@@ -1,10 +1,27 @@
-fastapi 
-uvicorn[standard] 
-python-multipart
-sentence-transformers
-qdrant-client
-PyMuPDF
-python-dotenv
-ollama
-psycopg2-binary
-sqlalchemy
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# Configuration
+pydantic==2.5.0
+python-dotenv==1.0.0
+
+# PDF Processing
+pymupdf==1.23.8
+
+# Vector Database
+qdrant-client==1.7.0
+
+# ML & Embeddings
+sentence-transformers==2.3.1
+
+# Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# LLM
+ollama==0.1.6
+
+# Utilities
+httpx==0.25.2
