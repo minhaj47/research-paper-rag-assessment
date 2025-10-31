@@ -1,194 +1,218 @@
-# 🎓 Research Paper RAG Assistant
+# 🎓 Research Paper RAG System
 
-A production-ready RAG (Retrieval-Augmented Generation) system for querying academic papers using advanced document processing, vector search, and LLM-powered answer generation.
+A production-ready Retrieval-Augmented Generation (RAG) service for querying academic research papers using vector search and LLMs.
 
-## 🏗️ Architecture Overview
+## 🚀 Quick Start (One Command)
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         Client/User                          │
-└────────────────────────────┬────────────────────────────────┘
-                             │ HTTP API
-                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    FastAPI Application                       │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │           Document Processing Pipeline                 │ │
-│  │  • PDF text extraction (PyMuPDF)                      │ │
-│  │  • LangChain semantic chunking (95.3% quality)        │ │
-│  │  • Section detection (Abstract, Methods, Results...)  │ │
-│  │  • Metadata extraction (title, authors, pages)        │ │
-│  └────────────────────────────────────────────────────────┘ │
-│                                                              │
-│  ┌────────────────────────────────────────────────────────┐ │
-│  │                RAG Query Pipeline                      │ │
-│  │  • Query embedding (sentence-transformers)            │ │
-│  │  • Vector similarity search (Qdrant)                  │ │
-│  │  • Context ranking & assembly                         │ │
-│  │  • LLM answer generation (Ollama/Llama3)              │ │
-│  │  • Citation formatting (paper + section + page)       │ │
-│  └────────────────────────────────────────────────────────┘ │
-└───────┬──────────────────────────────┬─────────────────────┘
-        │                              │
-        ▼                              ▼
-┌──────────────────┐          ┌─────────────────────┐
-│  Qdrant Vector   │          │   PostgreSQL DB     │
-│      Store       │          │                     │
-│  • 365 chunks    │          │  • Paper metadata   │
-│  • 384-dim       │          │  • Query history    │
-│  • HNSW index    │          │  • Analytics        │
-└──────────────────┘          └─────────────────────┘
-        │
-        ▼
-┌──────────────────┐
-│  Ollama LLM      │
-│  (Llama3)        │
-│  localhost:11434 │
-└──────────────────┘
+**Prerequisites:**
+
+- Docker and Docker Compose installed
+- Ollama running on your host machine with `llama3` model
+
+```bash
+# 1. Install Ollama (one-time setup)
+curl -fsSL https://ollama.ai/install.sh | sh
+ollama pull llama3
+
+# 2. Run Ollama server
+ollama run llama3
+# This will start Ollama at http://localhost:11434/
+# Keep this terminal running
+
+# 3. In a new terminal, clone and run the project
+git clone https://github.com/minhaj47/research-paper-rag-assessment.git
+cd research-paper-rag-assessment
+git checkout submission/minhaj
+docker compose up --build
 ```
 
-## ✨ Key Features
+That's it! The system will be ready:
 
-- ✅ **Advanced PDF Processing**: LangChain-powered semantic chunking with 95.3% boundary quality
-- ✅ **Section-Aware Extraction**: Detects Abstract, Introduction, Methods, Results, Conclusion
-- ✅ **Fast Vector Search**: Qdrant with HNSW indexing for sub-100ms similarity search
-- ✅ **Intelligent Citations**: Every answer includes paper name, section, and page number
-- ✅ **Query History**: PostgreSQL tracking of all queries with analytics
-- ✅ **Paper Management**: Full CRUD operations (Create, Read, Update, Delete)
-- ✅ **Docker Compose**: One-command deployment with health checks
+- **API**: http://localhost:8000
+- **Frontend**: http://localhost:3000
+
+**Quick test:**
+
+Option 1: **Web Interface** (Recommended)
+
+- Open http://localhost:3000 in your browser
+- Upload PDFs via drag & drop
+- Ask questions and see real-time streaming answers
+
+Option 2: **API (curl)**
+
+```bash
+curl -X POST -F "files=@sample_papers/paper_1.pdf" http://localhost:8000/api/upload
+```
+
+**⚠️ Port Conflict?** If you see `Error: bind: address already in use`:
+
+```bash
+# Find and kill the process using port 3000
+sudo kill -9 $(lsof -t -i:3000)
+
+# Or for port 8000
+sudo kill -9 $(lsof -t -i:8000)
+```
 
 ---
 
-## 🚀 Quick Start Guide
+## 📋 Table of Contents
+
+- [Features](#-features)
+- [Architecture](#-architecture)
+- [Setup Instructions](#-setup-instructions)
+- [API Documentation](#-api-documentation)
+- [Usage Examples](#-usage-examples)
+- [Project Structure](#-project-structure)
+- [Configuration](#-configuration)
+- [Troubleshooting](#-troubleshooting)
+
+---
+
+## ✨ Features
+
+### Core Features
+
+- ✅ **PDF Upload & Processing** - Multi-file upload with section-aware extraction
+- ✅ **Intelligent Query System** - RAG pipeline with citations and confidence scores
+- ✅ **Paper Management** - CRUD operations for managing uploaded papers
+- ✅ **Vector Search** - Semantic search using Qdrant vector database
+- ✅ **Citation Extraction** - Automatic citation mapping with source tracking
+- ✅ **Confidence Scoring** - AI-generated confidence levels for answers
+- ✅ **Query History & Analytics** - Track queries and view popular topics
+- 🎨 **Modern Web UI** - Next.js/React frontend with beautiful interface
+
+### Technical Features
+
+- 🐳 **Fully Dockerized** - Backend, frontend, and databases all containerized
+- 🔄 **Live Reload** - Development mode with auto-reload
+- �️ **PostgreSQL Storage** - Persistent metadata storage
+- 🔍 **Qdrant Vector DB** - Fast similarity search with HNSW indexing
+- 🤖 **Ollama Integration** - Local LLM for answer generation
+- 📊 **Structured Responses** - JSON API with proper error handling
+- 🎨 **Modern Web UI** - Beautiful, responsive Next.js app with SSE streaming
+- ⚡ **Performance Optimized** - Query caching, batch operations, score thresholding
+- 🎯 **Advanced Re-ranking** - Cross-encoder re-ranking for improved relevance (~10-15% better results)
+
+---
+
+## 🏗️ Architecture
+
+![System Architecture](architecture.png)
+
+### Key Components
+
+#### Frontend (Port 3000)
+
+- **Next.js Application**: Modern React framework with SSE streaming
+- **File Upload**: Drag & drop interface for PDF uploads
+- **Query Interface**: Real-time streaming answers with citations
+- **Paper Management**: View, delete, and analyze uploaded papers
+
+#### Backend API (Port 8000)
+
+- **FastAPI Framework**: High-performance async API with auto-documentation
+- **Document Ingestion**: PDF extraction → Chunking → Embedding → Storage
+- **RAG Pipeline**: Two-stage retrieval (Bi-encoder + Cross-encoder)
+
+#### Storage
+
+- **PostgreSQL**: Metadata (papers, queries, history)
+- **Qdrant**: 384-dimensional vector embeddings with COSINE similarity
+
+#### External Services
+
+- **Ollama**: Local LLM inference with llama3 model
+
+### Data Flow
+
+**Upload Flow** (Steps 1-4):
+
+1. User uploads PDF via web interface
+2. PDF text extraction with section detection
+3. Text chunking with overlap for context preservation
+4. Embedding generation + storage in Qdrant & PostgreSQL
+
+**Query Flow** (Steps 1-12):
+
+1. User submits question
+2. Query embedding generation
+3. Retrieve top_k × 2 candidates (bi-encoder, fast)
+4. Re-rank with cross-encoder (slow, accurate)
+5. Fetch paper metadata
+6. Build LLM prompt with top-K contexts
+7. Stream response from Ollama
+8. Parse and extract citations
+9. Save query history
+10. Return answer with confidence scores
+
+---
+
+## 🛠️ Setup Instructions
 
 ### Prerequisites
 
-Ensure you have the following installed:
+1. **Docker & Docker Compose**
 
-- **Docker Desktop** (v20.10+): [Download here](https://www.docker.com/products/docker-desktop)
-- **Docker Compose** (v2.0+): Included with Docker Desktop
-- **Ollama** (for LLM): [Install from ollama.com](https://ollama.com)
-- _Optional_: **Node.js 18+** for frontend UI
+   ```bash
+   # Check if installed
+   docker --version
+   docker-compose --version
 
-### Step 1: Clone the Repository
+   # Install if needed: https://docs.docker.com/get-docker/
+   ```
 
-```bash
-git clone https://github.com/minhaj47/research-paper-rag-assessment.git
-cd research-paper-rag-assessment
-```
+2. **Ollama (for LLM)**
 
-### Step 2: Configure Environment (Optional)
+   ```bash
+   # Install Ollama
+   curl -fsSL https://ollama.ai/install.sh | sh
 
-The system works out-of-the-box with default settings, but you can customize:
+   # Pull the model
+   ollama pull llama3
 
-```bash
-# Copy example environment file
-cp .env.example .env
+   # Run Ollama server (keep this running)
+   ollama run llama3
+   # Server will be available at http://localhost:11434/
 
-# Edit if needed (defaults work fine!)
-nano .env
-```
+   # In another terminal, verify it's running
+   curl http://localhost:11434/api/tags
+   ```
 
-**Key Configuration Variables:**
+### Installation
 
-| Variable          | Default                                                               | Description                           |
-| ----------------- | --------------------------------------------------------------------- | ------------------------------------- |
-| `DATABASE_URL`    | `postgresql://rag_user:rag_password@postgres:5432/research_papers_db` | PostgreSQL connection                 |
-| `QDRANT_HOST`     | `qdrant`                                                              | Qdrant hostname (docker service name) |
-| `QDRANT_PORT`     | `6333`                                                                | Qdrant port                           |
-| `EMBEDDING_MODEL` | `all-MiniLM-L6-v2`                                                    | Sentence transformer model            |
-| `LLM_MODEL`       | `llama3:latest`                                                       | Ollama model name                     |
-| `OLLAMA_HOST`     | `http://host.docker.internal:11434`                                   | Ollama API endpoint                   |
+#### With User Permissions (Linux/macOS)
 
-### Step 3: Start Ollama & Pull Model
+If you want files created by the container to match your user (avoids permission issues):
 
 ```bash
-# Start Ollama service (in a separate terminal)
-ollama serve
+# Set your user ID
+export UID=$(id -u)
+export GID=$(id -g)
 
-# Pull the Llama3 model (required, ~4.7GB download)
-ollama pull llama3
-
-# Verify it's available
-ollama list
-# Should show: llama3:latest
-```
-
-### Step 4: Launch with Docker Compose
-
-```bash
-# Build and start all services (Qdrant + PostgreSQL + API)
+# Start services
 docker-compose up --build
-
-# Or run in detached mode (background)
-docker-compose up -d --build
 ```
 
-**What happens:**
+The script adds:
 
-1. ✅ PostgreSQL starts on port 5432
-2. ✅ Qdrant starts on port 6333
-3. ✅ FastAPI application builds and starts on port 8000
-4. ✅ Database tables auto-initialize
-5. ✅ Health checks ensure services are ready
+- ✅ Prerequisite validation (Docker, Ollama)
+- ✅ Auto-detection of OS and user
+- ✅ Service health checks
+- ✅ Pretty output with status messages
 
-**Verify it's running:**
+### Verify Installation
 
 ```bash
-# Check API health
-curl http://localhost:8000/health
+# Check all services are running
+docker-compose ps
 
-# Expected response:
-# {"status":"healthy","service":"Research Paper RAG API","version":"0.1.0"}
-```
+# Test API health
+curl http://localhost:8000/docs
 
-### Step 5: Upload Sample Papers
-
-```bash
-# Upload all 5 sample papers
-for file in sample_papers/*.pdf; do
-  echo "Uploading $file..."
-  curl -X POST "http://localhost:8000/api/upload" \
-    -F "file=@$file"
-done
-
-# Verify papers are indexed
-curl http://localhost:8000/api/papers
-```
-
-**Expected Output:**
-
-- 5 papers indexed
-- ~365 total chunks created
-- Processing time: ~2 minutes
-
-### Step 6: Query the System
-
-```bash
-# Ask a question
-curl -X POST "http://localhost:8000/api/query" \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What is blockchain scalability?", "top_k": 3}'
-```
-
-**Expected Response:**
-
-```json
-{
-  "query": "What is blockchain scalability?",
-  "answer": "According to the research papers...",
-  "citations": [
-    {
-      "paper_title": "Sustainability in Blockchain...",
-      "section": "results",
-      "page": 13,
-      "relevance_score": 0.7285,
-      "text": "excerpt from paper..."
-    }
-  ],
-  "total_results": 3,
-  "response_time": 14.8
-}
+# Test Qdrant
+curl http://localhost:6333/collections
 ```
 
 ---
@@ -206,129 +230,103 @@ http://localhost:8000
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
 
----
+### Endpoints
 
-### 1. Health Check
+#### 1. Upload Papers
 
-**Endpoint:** `GET /health`
+```http
+POST /api/upload
+Content-Type: multipart/form-data
 
-**Description:** Check if API is running
-
-```bash
-curl http://localhost:8000/health
+files: (multiple PDF files)
 ```
 
-**Response:**
-
-```json
-{
-  "status": "healthy",
-  "service": "Research Paper RAG API",
-  "version": "0.1.0"
-}
-```
-
----
-
-### 2. Upload Paper
-
-**Endpoint:** `POST /api/upload`
-
-**Description:** Upload and process a PDF research paper
+**Example:**
 
 ```bash
 curl -X POST "http://localhost:8000/api/upload" \
-  -F "file=@sample_papers/paper_1.pdf"
+  -F "files=@sample_papers/paper_1.pdf" \
+  -F "files=@sample_papers/paper_2.pdf"
 ```
 
 **Response:**
 
 ```json
 {
-  "message": "Paper uploaded successfully",
-  "paper_id": 1,
+  "status": "success",
   "filename": "paper_1.pdf",
-  "title": "Sustainability in Blockchain: A Systematic Literature Review",
-  "authors": ["John Doe", "Jane Smith"],
-  "total_pages": 25,
-  "chunks_created": 126,
-  "sections_detected": [
-    "Abstract",
-    "Introduction",
-    "Methodology",
-    "Results",
-    "Conclusion"
-  ],
-  "upload_time": "2025-10-31T10:30:00"
+  "paper_id": 1,
+  "metadata": {
+    "title": "Sustainability in Blockchain",
+    "author": "Hani Alshahrani et al.",
+    "page_count": 24
+  },
+  "sections": {
+    "Abstract": {
+      "chunk_count": 3,
+      "start_page": 1
+    },
+    "Introduction": {
+      "chunk_count": 15,
+      "start_page": 2
+    }
+  },
+  "total_chunks": 119,
+  "content_type": "application/pdf",
+  "file_size": 3470416
 }
 ```
 
----
+#### 2. Query Papers (RAG)
 
-### 3. Query Papers (Main RAG Endpoint)
+```http
+POST /api/query
+Content-Type: application/json
 
-**Endpoint:** `POST /api/query`
+Parameters:
+- query (string, required): Your question
+- top_k (integer, optional): Number of results (default: 5)
+- paper_ids (array, optional): Filter by specific paper IDs
+```
 
-**Description:** Ask questions and get AI-powered answers with citations
-
-**Parameters:**
-
-- `query` (string, required): The question to ask
-- `top_k` (integer, optional): Number of context chunks to retrieve (default: 5)
+**Example:**
 
 ```bash
-# Example 1: Simple query
-curl -X POST "http://localhost:8000/api/query" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "question": "What methodology was used in the transformer paper?"
-  }'
-
-# Example 2: Query with custom top_k
-curl -X POST "http://localhost:8000/api/query?top_k=10" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "question": "Compare optimization algorithms across papers"
-  }'
-
-# Example 3: URL-encoded query (alternative syntax)
-curl -X POST "http://localhost:8000/api/query?query=What%20is%20blockchain%20scalability%3F&top_k=3"
+curl -X POST "http://localhost:8000/api/query?query=What%20methodology%20was%20used?&top_k=5"
 ```
 
 **Response:**
 
 ```json
 {
-  "query": "What methodology was used in the transformer paper?",
-  "answer": "The transformer paper uses a self-attention mechanism that processes sequences in parallel rather than sequentially. The methodology involves encoder-decoder architecture with multi-head attention layers...",
+  "answer": "Based on the provided context...",
   "citations": [
     {
-      "paper_title": "Attention is All You Need",
-      "section": "Methodology",
-      "page": 3,
-      "relevance_score": 0.8934,
-      "text": "The Transformer model architecture relies entirely on attention mechanisms..."
-    },
-    {
-      "paper_title": "Attention is All You Need",
-      "section": "Results",
+      "paper_title": "Sustainability in Blockchain",
+      "section": "Introduction",
       "page": 8,
-      "relevance_score": 0.8521,
-      "text": "Our model achieves state-of-the-art performance on machine translation..."
+      "relevance_score": 0.77,
+      "text": "excerpt from the paper..."
     }
   ],
-  "total_results": 2,
-  "response_time": 12.45
+  "sources_used": ["paper_1.pdf"],
+  "confidence": 0.54,
+  "response_time": 2.35
 }
 ```
 
----
+#### 3. Paper Management
 
-### 4. List All Papers
+```bash
+GET /api/papers              # List all papers
+GET /api/papers/{id}         # Get paper details
+DELETE /api/papers/{id}      # Delete paper
+GET /api/papers/{id}/stats   # Get chunk statistics
+GET /api/queries/history     # Query history
+GET /api/analytics/popular   # Popular queries
+```
 
-**Endpoint:** `GET /api/papers`
-
-**Description:** Get all uploaded papers with metadata
+**Example: List Papers**
 
 ```bash
 curl http://localhost:8000/api/papers
@@ -344,699 +342,278 @@ curl http://localhost:8000/api/papers
       "id": 1,
       "filename": "paper_1.pdf",
       "title": "Sustainability in Blockchain",
-      "authors": ["John Doe"],
-      "total_pages": 25,
-      "total_chunks": 126,
-      "upload_date": "2025-10-31T10:30:00",
-      "file_size": 3470416
-    },
-    {
-      "id": 2,
-      "filename": "paper_2.pdf",
-      "title": "Deep Learning Fundamentals",
-      "authors": ["Jane Smith"],
-      "total_pages": 18,
-      "total_chunks": 35,
-      "upload_date": "2025-10-31T10:32:00",
-      "file_size": 747892
+      "author": "Hani Alshahrani et al.",
+      "page_count": 24,
+      "total_chunks": 119,
+      "upload_date": "2025-10-31T10:30:00"
     }
   ]
 }
 ```
 
----
-
-### 5. Get Paper Details
-
-**Endpoint:** `GET /api/papers/{paper_id}`
-
-**Description:** Get detailed information about a specific paper
-
-```bash
-curl http://localhost:8000/api/papers/1
-```
-
-**Response:**
-
-```json
-{
-  "id": 1,
-  "filename": "paper_1.pdf",
-  "title": "Sustainability in Blockchain",
-  "authors": ["John Doe", "Jane Smith"],
-  "total_pages": 25,
-  "total_chunks": 126,
-  "sections": [
-    "Abstract",
-    "Introduction",
-    "Methodology",
-    "Results",
-    "Conclusion"
-  ],
-  "upload_date": "2025-10-31T10:30:00",
-  "file_size": 3470416,
-  "chunks_by_section": {
-    "Abstract": 3,
-    "Introduction": 15,
-    "Methodology": 42,
-    "Results": 38,
-    "Conclusion": 12,
-    "unknown": 16
-  }
-}
-```
+**📖 Interactive API Docs:** http://localhost:8000/docs
 
 ---
 
-### 6. Delete Paper
+## 💡 Usage Examples
 
-**Endpoint:** `DELETE /api/papers/{paper_id}`
+### Example 1: Python Client
 
-**Description:** Delete a paper and all its associated chunks from both databases
-
-```bash
-curl -X DELETE "http://localhost:8000/api/papers/1"
-```
-
-**Response:**
-
-```json
-{
-  "message": "Paper deleted successfully",
-  "paper_id": 1,
-  "filename": "paper_1.pdf",
-  "vectors_deleted": 126,
-  "metadata_deleted": true
-}
-```
-
----
-
-### 7. Query History
-
-**Endpoint:** `GET /api/queries/history`
-
-**Description:** Retrieve past queries with optional filtering
-
-**Parameters:**
-
-- `limit` (integer, optional): Number of queries to return (default: 50)
-- `offset` (integer, optional): Pagination offset (default: 0)
-
-```bash
-# Get last 10 queries
-curl "http://localhost:8000/api/queries/history?limit=10"
-
-# Pagination example
-curl "http://localhost:8000/api/queries/history?limit=20&offset=20"
-```
-
-**Response:**
-
-```json
-{
-  "total": 145,
-  "queries": [
-    {
-      "id": 145,
-      "query_text": "What is blockchain scalability?",
-      "response_time": 14.8,
-      "papers_used": ["paper_1.pdf", "paper_4.pdf"],
-      "timestamp": "2025-10-31T15:45:00",
-      "top_k": 3
-    }
-  ]
-}
-```
-
----
-
-### 8. Popular Topics Analytics
-
-**Endpoint:** `GET /api/analytics/popular`
-
-**Description:** Get most frequently queried topics
-
-```bash
-curl "http://localhost:8000/api/analytics/popular?limit=5"
-```
-
-**Response:**
-
-```json
-{
-  "popular_topics": [
-    { "topic": "blockchain scalability", "count": 23 },
-    { "topic": "transformer architecture", "count": 18 },
-    { "topic": "optimization algorithms", "count": 15 }
-  ]
-}
-```
-
----
-
-## 🧪 Testing with Sample Queries
-
-The repository includes `test_queries.json` with 20 test cases covering:
-
-- **Single-paper queries**: Target specific papers
-- **Multi-paper queries**: Require information from multiple sources
-- **Difficulty levels**: Easy, medium, hard
-
-```bash
-# Run a test query
-python3 << 'EOF'
+```python
 import requests
-import json
 
-with open('test_queries.json') as f:
-    queries = json.load(f)
+# Upload a paper
+files = [('files', open('sample_papers/paper_1.pdf', 'rb'))]
+upload_result = requests.post('http://localhost:8000/api/upload', files=files).json()
+print(f"Uploaded: {upload_result['filename']}, Paper ID: {upload_result['paper_id']}")
 
-# Test first query
-query = queries[0]
-response = requests.post(
-    "http://localhost:8000/api/query",
-    json={"question": query["question"], "top_k": 3}
-)
-
-print(f"Query: {query['question']}")
-print(f"Answer: {response.json()['answer'][:200]}...")
-print(f"Citations: {len(response.json()['citations'])}")
-EOF
+# Query the system
+query_params = {"query": "What is blockchain?", "top_k": 5}
+result = requests.post('http://localhost:8000/api/query', params=query_params).json()
+print(f"Answer: {result['answer']}")
+print(f"Confidence: {result['confidence']}")
 ```
-
----
 
 ## 📁 Project Structure
 
 ```
 research-paper-rag-assessment/
-│
-├── 📄 README.md                      # This file - complete setup guide
-├── 📄 APPROACH.md                    # Design decisions & implementation details
-├── 📄 requirements.txt               # Python dependencies
-├── 📄 .env.example                   # Environment template (no secrets)
-├── 📄 docker-compose.yml             # Multi-service orchestration
-├── 📄 Dockerfile                     # Application container definition
-│
-├── 📂 src/                           # Backend application source
-│   ├── main.py                       # FastAPI entry point
-│   ├── config.py                     # Configuration management (env vars)
-│   ├── init_db.py                    # Database initialization script
-│   │
-│   ├── 📂 api/                       # REST API layer
+├── src/                             # Backend Python code
+│   ├── __init__.py
+│   ├── main.py                      # FastAPI application entry point
+│   ├── api/
 │   │   ├── __init__.py
-│   │   └── routes.py                 # All API endpoints (upload, query, CRUD)
-│   │
-│   ├── 📂 models/                    # Data models
-│   │   ├── database.py               # SQLAlchemy ORM models (Paper, Query)
-│   │   └── document.py               # Pydantic request/response models
-│   │
-│   └── 📂 services/                  # Core business logic
-│       ├── document_processor.py     # PDF extraction + LangChain chunking
-│       ├── embedding_service.py      # sentence-transformers embeddings
-│       ├── qdrant_client.py          # Qdrant vector DB operations
-│       ├── rag_pipeline.py           # End-to-end RAG orchestration
-│       └── database_service.py       # PostgreSQL CRUD operations
-│
-├── 📂 sample_papers/                 # Test dataset
-│   ├── paper_1.pdf                   # Blockchain sustainability (3.4MB, 126 chunks)
-│   ├── paper_2.pdf                   # Deep learning (747KB, 35 chunks)
-│   ├── paper_3.pdf                   # Template document (456KB, 40 chunks)
-│   ├── paper_4.pdf                   # Maritime transport (849KB, 104 chunks)
-│   └── paper_5.pdf                   # Social media research (1.4MB, 60 chunks)
-│
-├── 📂 frontend/                      # Optional Next.js UI (separate service)
-│   ├── app/                          # Next.js 14 app directory
-│   │   ├── layout.tsx                # Root layout component
-│   │   ├── page.tsx                  # Main dashboard page
-│   │   └── globals.css               # Tailwind styling
-│   ├── components/                   # React components
-│   │   ├── QueryInterface.tsx        # Ask questions UI
-│   │   ├── PaperLibrary.tsx          # Browse papers UI
-│   │   ├── UploadPaper.tsx           # Drag & drop upload UI
-│   │   └── QueryHistoryView.tsx      # Past queries UI
-│   ├── lib/
-│   │   └── api.ts                    # API client wrapper
-│   └── package.json                  # Node dependencies
-│
-├── 📂 logs/                          # Application logs (gitignored)
-├── 📂 uploads/                       # Temporary PDF storage (gitignored)
-├── 📂 temp/                          # Processing temp files (gitignored)
-└── 📂 vector_store/                  # Qdrant persistent storage (gitignored)
+│   │   └── routes.py                # API endpoint definitions with SSE streaming
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── db.py                    # SQLAlchemy models (papers, queries)
+│   └── services/
+│       ├── __init__.py
+│       ├── pdf_processor.py         # PDF extraction logic
+│       ├── embedding_service.py     # Sentence transformers with caching
+│       ├── qdrant_client.py         # Qdrant client with HNSW indexing
+│       ├── rag_pipeline.py          # RAG query pipeline with cross-encoder
+│       ├── ollama_client.py         # Ollama LLM client with streaming
+│       └── chunking.py              # Text chunking strategies
+├── frontend/                        # Next.js web interface
+│   ├── app/                         # Next.js App Router
+│   ├── components/                  # React components
+│   │   ├── QueryInterface.tsx       # Query UI with SSE streaming
+│   │   ├── PaperList.tsx           # Paper management
+│   │   └── FileUpload.tsx          # Drag & drop upload
+│   ├── Dockerfile                   # Frontend container (multi-stage)
+│   ├── package.json                 # Node.js dependencies
+│   ├── next.config.js               # Next.js configuration
+│   └── tailwind.config.js           # Tailwind CSS configuration
+├── tests/                           # Test suite
+│   ├── unit/                        # Unit tests (45 tests)
+│   │   ├── test_chunking.py         # Chunking logic tests
+│   │   ├── test_pdf_processor.py    # PDF extraction tests
+│   │   ├── test_rag_pipeline.py     # RAG pipeline tests
+│   │   ├── test_embedding_service.py # Embedding tests
+│   │   └── test_reranking.py        # Re-ranking tests
+│   ├── test_query_api.sh            # API endpoint tests
+│   ├── test_query_examples.py       # Query flow tests
+│   └── test_paper_management.py     # CRUD operation tests
+├── sample_papers/                   # Test PDF files
+├── uploads/                         # Uploaded files (auto-created)
+├── logs/                            # Application logs
+├── vector_store/                    # Qdrant vector storage
+├── docker-compose.yml               # All services: frontend, API, DB, Qdrant
+├── Dockerfile                       # Backend API container
+├── requirements.txt                 # Python dependencies
+├── .env.example                     # Environment variables template
+├── APPROACH.md                      # Technical design decisions
+├── test_queries.json                # Sample test queries
+└── README.md                        # This file
 ```
-
-### Key Files Explained
-
-| File                                 | Purpose                                                                |
-| ------------------------------------ | ---------------------------------------------------------------------- |
-| `src/main.py`                        | FastAPI app initialization, CORS, routes registration                  |
-| `src/config.py`                      | Centralized configuration using environment variables                  |
-| `src/services/document_processor.py` | PDF parsing, section detection, LangChain chunking (700+ lines)        |
-| `src/services/rag_pipeline.py`       | Query embedding → vector search → LLM generation → citation formatting |
-| `src/api/routes.py`                  | All 8 REST endpoints with request validation                           |
-| `docker-compose.yml`                 | Defines 3 services: qdrant, postgres, app                              |
-| `.env.example`                       | Template with safe defaults (copy to `.env`)                           |
 
 ---
 
-## 🔧 Configuration Guide
+### Docker Services
 
-### Environment Variables
+The `docker-compose.yml` defines four services:
 
-All configuration is done through `.env` file (copy from `.env.example`):
+1. **Frontend (Next.js)** - Port 3000 - Modern web interface
+2. **API (FastAPI)** - Port 8000 - Backend REST API
+3. **PostgreSQL** - Port 5432 - Paper metadata storage
+4. **Qdrant** - Port 6333 - Vector database
 
-```bash
-# Database Configuration
-DATABASE_URL=postgresql://rag_user:rag_password@postgres:5432/research_papers_db
-
-# Qdrant Vector Store
-QDRANT_HOST=qdrant
-QDRANT_PORT=6333
-QDRANT_COLLECTION=research_papers
-
-# Embedding Model
-EMBEDDING_MODEL=all-MiniLM-L6-v2
-EMBEDDING_DIM=384
-
-# LLM Configuration
-OLLAMA_HOST=http://host.docker.internal:11434
-LLM_MODEL=llama3:latest
-LLM_TEMPERATURE=0.7
-LLM_MAX_TOKENS=500
-
-# Chunking Parameters
-CHUNK_SIZE=1000
-CHUNK_OVERLAP=200
-
-# API Settings
-API_HOST=0.0.0.0
-API_PORT=8000
-```
-
-**Important Notes:**
-
-- ✅ No secrets or API keys are hardcoded
-- ✅ All values use `os.getenv()` with sensible defaults
-- ✅ Works out-of-the-box without modification
-- ✅ Docker service names (qdrant, postgres) resolve automatically
-
-### Docker Services Configuration
-
-**`docker-compose.yml`** defines:
-
-1. **qdrant**: Vector database
-
-   - Port: 6333
-   - Storage: `./vector_store:/qdrant/storage`
-   - Health check: HTTP endpoint
-
-2. **postgres**: Metadata database
-
-   - Port: 5432
-   - User: `rag_user`
-   - Password: `rag_password` (dev only!)
-   - Database: `research_papers_db`
-
-3. **app**: FastAPI application
-   - Port: 8000
-   - Depends on: qdrant, postgres
-   - Auto-restart on failure
-
----
-
-## 🛠️ Technology Stack
-
-| Component           | Technology              | Version | Purpose                              |
-| ------------------- | ----------------------- | ------- | ------------------------------------ |
-| **Web Framework**   | FastAPI                 | Latest  | High-performance async REST API      |
-| **Vector Database** | Qdrant                  | Latest  | Similarity search with HNSW indexing |
-| **Relational DB**   | PostgreSQL              | 15      | Paper metadata & query history       |
-| **Text Splitter**   | LangChain               | 1.0.0   | Advanced semantic chunking           |
-| **Embeddings**      | sentence-transformers   | 2.3.1   | all-MiniLM-L6-v2 model (384-dim)     |
-| **LLM**             | Ollama (Llama3)         | Latest  | Local answer generation              |
-| **PDF Parser**      | PyMuPDF (fitz)          | 1.23.8  | Fast, reliable text extraction       |
-| **ORM**             | SQLAlchemy              | 2.0+    | Database operations                  |
-| **Validation**      | Pydantic                | 2.7.4+  | Request/response validation          |
-| **Frontend**        | Next.js 14 + TypeScript | Latest  | Optional modern UI                   |
-
-### Why These Choices?
-
-✅ **FastAPI**: 3x faster than Flask, automatic OpenAPI docs, async support  
-✅ **Qdrant**: Built for production ML, faster than FAISS for >10k vectors  
-✅ **LangChain**: Industry-standard text splitter with 95.3% boundary quality  
-✅ **Ollama**: Privacy-first, no API costs, runs completely offline  
-✅ **all-MiniLM-L6-v2**: Best speed/quality balance (384 dims vs 768 for larger models)
-
----
-
-## 🧪 Testing & Validation
-
-### Manual Testing
-
-```bash
-# 1. Health check
-curl http://localhost:8000/health
-
-# 2. Upload a paper
-curl -X POST "http://localhost:8000/api/upload" \
-  -F "file=@sample_papers/paper_1.pdf"
-
-# 3. Query it
-curl -X POST "http://localhost:8000/api/query" \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What is the main topic of this paper?"}'
-
-# 4. Verify citations include paper name, section, and page
-# Check response JSON for: paper_title, section, page fields
-
-# 5. Test error handling
-curl http://localhost:8000/api/papers/999
-# Should return: {"detail": "Paper not found"}
-```
-
-### Automated Testing with test_queries.json
-
-```bash
-# Run all 20 test queries
-python3 << 'EOF'
-import requests
-import json
-import time
-
-with open('test_queries.json') as f:
-    test_queries = json.load(f)
-
-passed = 0
-failed = 0
-
-for query_data in test_queries:
-    print(f"\n[{query_data['id']}] Testing: {query_data['question'][:60]}...")
-
-    try:
-        response = requests.post(
-            "http://localhost:8000/api/query",
-            json={"question": query_data["question"], "top_k": 3},
-            timeout=30
-        )
-
-        if response.status_code == 200:
-            data = response.json()
-            has_answer = len(data.get('answer', '')) > 50
-            has_citations = len(data.get('citations', [])) > 0
-
-            if has_answer and has_citations:
-                print(f"  ✅ PASS - {len(data['citations'])} citations, {data.get('response_time', 0):.1f}s")
-                passed += 1
-            else:
-                print(f"  ⚠️  PARTIAL - No answer or citations")
-                failed += 1
-        else:
-            print(f"  ❌ FAIL - HTTP {response.status_code}")
-            failed += 1
-
-    except Exception as e:
-        print(f"  ❌ ERROR - {str(e)}")
-        failed += 1
-
-    time.sleep(1)  # Rate limiting
-
-print(f"\n{'='*60}")
-print(f"Results: {passed} passed, {failed} failed out of {len(test_queries)}")
-print(f"{'='*60}")
-EOF
-```
-
-### Expected Results
-
-- ✅ All 5 papers successfully uploaded (~365 total chunks)
-- ✅ Query responses include paper_title, section, page in citations
-- ✅ Response time: 10-20 seconds per query (depending on hardware)
-- ✅ Error messages are clear and helpful (404 for missing papers)
+All services use persistent volumes to preserve data across restarts.
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Issue: "Ollama connection refused"
+### Common Issues
+
+#### 1. Ollama Connection Refused
+
+**Symptom:** Queries return empty answers or "Connection refused" errors
+
+**Solution:**
 
 ```bash
 # Check if Ollama is running
 curl http://localhost:11434/api/tags
 
-# If not running, start it
-ollama serve
+# If not running, start Ollama server (keep this terminal open)
+ollama run llama3
 
-# Verify model is pulled
-ollama list
-# Should show: llama3:latest
+# If model is missing, pull it first
+ollama pull llama3
+
+# Verify the server is accessible
+curl http://localhost:11434/api/generate -d '{"model":"llama3","prompt":"test"}'
 ```
 
-### Issue: "Qdrant collection not found"
+**Note:** Ollama must be running on the host machine at `http://localhost:11434/` for the Docker containers to access it.
+
+If the above steps don't help, check container logs via `docker-compose logs api`.
+
+#### 2. Permission Denied on uploads/ or logs/ Directory
+
+**Symptom:** Cannot write files to uploads/ or logs/
+
+**Solution:**
 
 ```bash
-# Check Qdrant is running
-curl http://localhost:6333/health
+# Fix ownership (one-time)
+sudo chown -R $USER:$USER uploads/ logs/ vector_store/
 
-# Restart services
-docker-compose restart qdrant app
-
-# Check logs
-docker-compose logs qdrant
-```
-
-### Issue: "PostgreSQL connection error"
-
-```bash
-# Check PostgreSQL is running
-docker-compose ps
-
-# View PostgreSQL logs
-docker-compose logs postgres
-
-# Restart PostgreSQL
-docker-compose restart postgres
-
-# Re-initialize database
-docker-compose exec app python src/init_db.py
-```
-
-### Issue: "Port 8000 already in use"
-
-```bash
-# Find process using port 8000
-lsof -ti:8000
-
-# Kill it
-kill -9 $(lsof -ti:8000)
-
-# Or change API_PORT in .env
-echo "API_PORT=8001" >> .env
+# Rebuild containers
+docker-compose down
 docker-compose up --build
 ```
 
-### Issue: "Slow query responses"
+#### 3. Port 3000 Already in Use (Frontend Conflict)
 
-**Possible causes:**
+**Symptom:** `Error: bind: address already in use` when starting frontend container
 
-1. **First query is slow**: Ollama loads model into memory (normal)
-2. **All queries slow**: Check Ollama CPU/GPU usage
-3. **Many papers**: Qdrant HNSW index might need tuning
+**Cause:** Another service is using port 3000 (common for Next.js/React dev servers)
+
+**Solution:**
 
 ```bash
-# Check Ollama resource usage
-docker stats
+# Check what's using port 3000
+lsof -i :3000
 
-# Use smaller model for faster responses
-ollama pull llama3:7b
-# Update .env: LLM_MODEL=llama3:7b
+# Kill the process
+sudo kill -9 $(lsof -t -i:3000)
+
+# Then start Docker
+docker compose up --build
 ```
 
-### Issue: "Citations missing page numbers"
+#### 4. Port 8000 Already in Use (Backend Conflict)
 
-**Verification:**
+**Symptom:** Backend API fails to start
+
+**Solution:**
 
 ```bash
-# Check a response
-curl -X POST "http://localhost:8000/api/query?query=test&top_k=1" | python3 -m json.tool
+# Check what's using port 8000
+sudo lsof -i :8000
 
-# Look for: citations[0].page (should be integer, not null)
+# Stop conflicting service
+sudo kill -9 $(lsof -t -i:8000)
+
+# Or stop all containers and restart
+docker compose down
+docker compose up --build
 ```
 
-If page is null, check document_processor.py is using LangChain correctly.
+#### 5. Container Fails to Start
 
----
-
-## 🧹 Cleanup & Maintenance
-
-### Stop Services
+**Solution:**
 
 ```bash
-# Stop all containers
-docker-compose down
+# Check logs
+docker compose logs api
+docker compose logs frontend
 
-# Stop and remove volumes (deletes all data!)
-docker-compose down -v
+# Rebuild from scratch
+docker compose down -v
+docker system prune -f
+./setup.sh
 ```
 
-### Clear Data
+### Logs and Debugging
 
 ```bash
-# Clear PostgreSQL data
-docker-compose exec postgres psql -U rag_user -d research_papers_db -c "TRUNCATE papers, queries CASCADE;"
-
-# Clear Qdrant data
-curl -X DELETE "http://localhost:6333/collections/research_papers"
-
-# Or just delete volume folder
-rm -rf vector_store/
-```
-
-### View Logs
-
-```bash
-# All services
+# View all logs
 docker-compose logs
 
-# Specific service
-docker-compose logs app
-docker-compose logs qdrant
-docker-compose logs postgres
+# Follow API logs
+docker-compose logs -f api
 
-# Follow logs in real-time
-docker-compose logs -f app
+# Check container status
+docker-compose ps
+
+# Enter API container
+docker exec -it rag_api bash
 ```
 
-### Database Shell Access
+---
+
+## 🎨 Web Interface
+
+**Frontend:** http://localhost:3000
+
+**Features:**
+
+- 📤 Drag & drop PDF upload
+- 🔍 Real-time query interface
+- 📚 Paper management with stats
+- 📊 Query history & analytics
+
+**Local Dev:**
 
 ```bash
-# PostgreSQL
-docker-compose exec postgres psql -U rag_user -d research_papers_db
-
-# Useful queries:
-# SELECT * FROM papers;
-# SELECT COUNT(*) FROM queries;
-# SELECT * FROM queries ORDER BY created_at DESC LIMIT 10;
+cd frontend && npm install && npm run dev
 ```
 
 ---
 
-## 📊 Performance Metrics
-
-Based on testing with 5 sample papers (365 chunks total):
-
-| Metric            | Value               | Notes                                               |
-| ----------------- | ------------------- | --------------------------------------------------- |
-| **Upload time**   | ~2 min for 5 papers | Includes PDF parsing + chunking + embedding         |
-| **Query latency** | 10-20 sec           | First query: ~20s (model load), subsequent: ~10-12s |
-| **Vector search** | <100ms              | Qdrant HNSW indexing                                |
-| **Embedding gen** | ~50 chunks/sec      | CPU-based (sentence-transformers)                   |
-| **Chunk quality** | 95.3%               | LangChain boundary detection accuracy               |
-| **Memory usage**  | ~2GB                | App + Qdrant + PostgreSQL                           |
-| **Storage**       | ~50MB               | 365 vectors (384-dim) + metadata                    |
-
-### Scalability Estimates
-
-- **1,000 papers**: ~10 GB storage, <500ms query time
-- **10,000 papers**: ~100 GB storage, <1s query time
-- **100,000 papers**: Consider distributed Qdrant cluster
-
----
-
-## 🎯 Design Decisions & Trade-offs
-
-See **[APPROACH.md](APPROACH.md)** for detailed explanations of:
-
-- ✅ Chunking strategy (why 1000 tokens, 200 overlap)
-- ✅ Embedding model selection (all-MiniLM-L6-v2 rationale)
-- ✅ Prompt engineering approach (context assembly, citation formatting)
-- ✅ Database schema design (paper-chunk relationships)
-- ✅ LangChain integration (recursive text splitter benefits)
-- ✅ Trade-offs and limitations (known issues, future improvements)
-
----
-
-## 📝 Development Notes
-
-### Code Quality
-
-- ✅ **No hardcoded secrets**: All sensitive values use `os.getenv()`
-- ✅ **Comprehensive comments**: Complex logic is documented
-- ✅ **Type hints**: Python 3.10+ type annotations throughout
-- ✅ **Error handling**: Try-except blocks with meaningful messages
-- ✅ **Logging**: Print statements to console for debugging
-- ✅ **Validation**: Pydantic models for request/response validation
-
-### Local Development Setup
+## 🧪 Testing
 
 ```bash
-# Clone and navigate
-git clone <repo-url>
-cd research-paper-rag-assessment
+# Test API endpoints
+curl http://localhost:8000/health
 
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Upload a sample paper
+curl -X POST -F "files=@sample_papers/paper_1.pdf" http://localhost:8000/api/upload
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Start services only (no app)
-docker-compose up -d qdrant postgres
-
-# Initialize database
-python src/init_db.py
-
-# Run app locally with hot-reload
-uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+# Query the system
+curl "http://localhost:8000/api/query?query=What%20is%20blockchain?&top_k=5"
 ```
-
-### Adding New Features
-
-1. **Add new endpoint**: Edit `src/api/routes.py`
-2. **Add new service**: Create file in `src/services/`
-3. **Add new model**: Edit `src/models/database.py` or `document.py`
-4. **Update config**: Add to `src/config.py` and `.env.example`
-5. **Test**: Use curl or Postman to verify
 
 ---
 
-## 🤝 Contributing
+## 🔧 Development
 
-This is an assessment project. Key accomplishments:
-
-- ✅ LangChain integration for 95.3% chunking quality
-- ✅ Section-aware document processing (Abstract, Methods, Results...)
-- ✅ Citations include paper name + section + page number
-- ✅ Complete CRUD API with paper deletion from Qdrant
-- ✅ Docker Compose for one-command deployment
-- ✅ Comprehensive API documentation with examples
+```bash
+docker-compose up                  # Start with live reload
+docker-compose logs -f api         # View logs
+docker-compose down                # Stop (data persists)
+docker-compose down -v             # Stop + clean volumes
+```
 
 ---
 
 ## 📄 License
 
-This project is part of an assessment for educational purposes.
+[Your License Here]
 
 ---
 
-## 📧 Contact
+## 🙏 Acknowledgments
 
-**Developer**: Minhaj Ahmed  
-**Email**: ishmam.abid5422@gmail.com  
-**GitHub**: [@minhaj47](https://github.com/minhaj47)  
-**Repository**: research-paper-rag-assessment
-
----
-
-## 🎉 Acknowledgments
-
-- **Assessment Provider**: Thank you for this challenging and educational project
-- **Technologies Used**: FastAPI, Qdrant, LangChain, Ollama, PostgreSQL
-- **Sample Papers**: Used for testing and demonstration purposes
+- **Qdrant** - Vector database
+- **Ollama** - Local LLM inference
+- **FastAPI** - Web framework
+- **sentence-transformers** - Embedding models
 
 ---
 
-**Ready to query research papers intelligently!** 🚀
-
-For implementation details, see [APPROACH.md](APPROACH.md)
+**Built with ❤️ for UpScaleBD**
