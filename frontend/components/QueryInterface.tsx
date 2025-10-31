@@ -314,37 +314,106 @@ export default function QueryInterface() {
             </div>
           </div>
 
-          {/* Citations */}
-          {result.citations && result.citations.length > 0 && (
+          {/* Source Content & Citations */}
+          {result.context_chunks && result.context_chunks.length > 0 && (
             <div>
               <h3 className="text-base font-bold text-slate-900 mb-2 flex items-center uppercase tracking-wide">
                 <FileText className="mr-2 text-slate-700" size={18} />
-                Source Citations ({result.citations.length})
+                Referenced Sources ({result.context_chunks.length})
               </h3>
               <div className="space-y-2">
-                {result.citations.map((citation, index) => (
-                  <div
-                    key={index}
-                    className="bg-white border-2 border-slate-300 rounded-lg p-3 shadow-sm hover:shadow-md hover:border-slate-400 transition-all"
-                  >
-                    <div className="flex items-start justify-between mb-1.5">
-                      <h4 className="font-bold text-slate-900 text-sm flex-1 leading-tight">
-                        {citation.paper_title}
-                      </h4>
-                      <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded font-bold ml-2 uppercase tracking-wide shadow-sm">
-                        P.{citation.page_number}
-                      </span>
+                {result.context_chunks.map((chunk, index) => {
+                  const relevancePercent = Math.round(chunk.score * 100);
+                  const isHighRelevance = chunk.score > 0.7;
+                  const isMediumRelevance = chunk.score > 0.5;
+
+                  return (
+                    <div
+                      key={index}
+                      className="bg-white border-2 border-slate-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-slate-400 transition-all"
+                    >
+                      {/* Header Bar with Source Number and Relevance */}
+                      <div className="bg-gradient-to-r from-slate-100 to-slate-50 px-4 py-2 border-b-2 border-slate-200 flex items-center justify-between">
+                        <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">
+                          Source #{index + 1}
+                        </span>
+                        <div className="flex items-center space-x-2">
+                          <div
+                            className={`text-xs font-bold px-2 py-1 rounded uppercase tracking-wide shadow-sm ${
+                              isHighRelevance
+                                ? "bg-green-600 text-white"
+                                : isMediumRelevance
+                                ? "bg-blue-600 text-white"
+                                : "bg-slate-600 text-white"
+                            }`}
+                          >
+                            {relevancePercent}% Match
+                          </div>
+                          <span className="text-xs bg-slate-700 text-white px-2 py-1 rounded font-bold shadow-sm">
+                            Page {chunk.metadata.page}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-4">
+                        {/* Paper Info */}
+                        <div className="mb-3">
+                          <h4 className="font-bold text-slate-900 text-base leading-tight mb-1">
+                            {chunk.metadata.title || "Untitled Paper"}
+                          </h4>
+                          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600">
+                            {chunk.metadata.author && (
+                              <span className="font-medium">
+                                👤 {chunk.metadata.author}
+                              </span>
+                            )}
+                            <span className="font-medium text-slate-500">
+                              •
+                            </span>
+                            <span className="font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                              📄 {chunk.metadata.filename}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Section Tag */}
+                        {chunk.metadata.section && (
+                          <div className="mb-3">
+                            <span className="inline-flex items-center text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+                              📑 {chunk.metadata.section}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Content Excerpt */}
+                        <div className="bg-blue-50/50 border-l-4 border-blue-500 p-3 rounded-r mb-3">
+                          <p className="text-sm text-slate-800 leading-relaxed">
+                            "{chunk.text}"
+                          </p>
+                        </div>
+
+                        {/* Citation Format */}
+                        <div className="bg-slate-50 rounded p-2.5 border border-slate-200">
+                          <p className="text-xs text-slate-700 leading-relaxed">
+                            <span className="font-bold text-slate-900">
+                              Citation:
+                            </span>{" "}
+                            {chunk.metadata.author && (
+                              <span>{chunk.metadata.author}. </span>
+                            )}
+                            <em className="text-slate-800">
+                              {chunk.metadata.title || chunk.metadata.filename}
+                            </em>
+                            {chunk.metadata.section && (
+                              <span>, {chunk.metadata.section}</span>
+                            )}
+                            , p. {chunk.metadata.page}.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    {citation.section && (
-                      <p className="text-xs text-slate-700 mb-1.5 font-semibold">
-                        Section: {citation.section}
-                      </p>
-                    )}
-                    <p className="text-sm text-slate-700 italic leading-relaxed font-medium">
-                      "{citation.text}"
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
