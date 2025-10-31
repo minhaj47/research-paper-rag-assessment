@@ -601,12 +601,6 @@ docker-compose down -v             # Stop + clean volumes
 
 ---
 
-## 📄 License
-
-[Your License Here]
-
----
-
 ## 🙏 Acknowledgments
 
 - **Qdrant** - Vector database
