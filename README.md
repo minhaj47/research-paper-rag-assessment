@@ -59,6 +59,7 @@ A production-ready RAG (Retrieval-Augmented Generation) system that helps resear
 - **Docker & Docker Compose**: For running services
 - **Ollama**: For local LLM (or use DeepSeek API)
 - **Python 3.10+**: For local development
+- **Node.js 18+**: For frontend (optional)
 
 ### 1. Clone Repository
 
@@ -126,6 +127,25 @@ ollama pull llama3
 # Verify Ollama is running
 ollama list
 ```
+
+### 5. Setup Frontend (Optional)
+
+A modern Next.js frontend is available for a better user experience:
+
+```bash
+# Run the setup script
+chmod +x setup-frontend.sh
+./setup-frontend.sh
+
+# Or manually:
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend will be available at **http://localhost:3000**
+
+See [frontend/README.md](frontend/README.md) for detailed documentation.
 
 ## 📡 API Endpoints
 
@@ -213,7 +233,7 @@ curl "http://localhost:8000/api/analytics/popular"
 
 ```
 research-paper-rag-assessment/
-├── src/
+├── src/                               # Backend application
 │   ├── main.py                        # FastAPI application entry point
 │   ├── config.py                      # Configuration management
 │   ├── init_db.py                     # Database initialization
@@ -229,12 +249,27 @@ research-paper-rag-assessment/
 │       ├── qdrant_client.py           # Qdrant vector operations
 │       ├── rag_pipeline.py            # RAG query pipeline
 │       └── database_service.py        # PostgreSQL operations
+├── frontend/                          # Next.js frontend (optional)
+│   ├── app/                          # Next.js app directory
+│   │   ├── layout.tsx                # Root layout
+│   │   ├── page.tsx                  # Main page
+│   │   └── globals.css               # Global styles
+│   ├── components/                   # React components
+│   │   ├── QueryInterface.tsx        # Query papers UI
+│   │   ├── PaperLibrary.tsx          # Browse papers UI
+│   │   ├── UploadPaper.tsx           # Upload papers UI
+│   │   └── QueryHistoryView.tsx      # Query history UI
+│   ├── lib/
+│   │   └── api.ts                    # API client
+│   ├── package.json                  # Node.js dependencies
+│   └── README.md                     # Frontend documentation
 ├── sample_papers/                     # Test dataset (5 papers)
 ├── provided_docs/                     # Assessment documentation
 ├── tests/                             # Unit tests
 ├── docker-compose.yml                 # Docker services configuration
 ├── Dockerfile                         # Application container
 ├── requirements.txt                   # Python dependencies
+├── setup-frontend.sh                  # Frontend setup script
 ├── .env.example                       # Environment template
 ├── .env                              # Your configuration (gitignored)
 ├── README.md                          # This file
@@ -365,6 +400,8 @@ rm -rf venv
 
 ## 📚 Technology Stack
 
+### Backend
+
 | Component          | Technology            | Version | Purpose             |
 | ------------------ | --------------------- | ------- | ------------------- |
 | **Web Framework**  | FastAPI               | Latest  | REST API            |
@@ -374,6 +411,17 @@ rm -rf venv
 | **Embeddings**     | sentence-transformers | Latest  | Text vectorization  |
 | **PDF Processing** | PyMuPDF               | Latest  | PDF extraction      |
 | **ORM**            | SQLAlchemy            | Latest  | Database operations |
+
+### Frontend (Optional)
+
+| Component       | Technology     | Version | Purpose         |
+| --------------- | -------------- | ------- | --------------- |
+| **Framework**   | Next.js        | 14      | React framework |
+| **Language**    | TypeScript     | 5       | Type safety     |
+| **Styling**     | Tailwind CSS   | 3.4     | UI styling      |
+| **HTTP Client** | Axios          | Latest  | API requests    |
+| **Icons**       | Lucide React   | Latest  | UI icons        |
+| **File Upload** | React Dropzone | Latest  | Drag & drop     |
 
 ## 🎯 Design Decisions
 

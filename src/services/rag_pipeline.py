@@ -19,7 +19,7 @@ class RAGPipeline:
         # Initialize Qdrant collection
         self.vector_store.create_collection()
         
-    async def process_and_store_document(self, file_content: bytes, filename: str) -> Dict[str, Any]:
+    async def process_and_store_document(self, file_content: bytes, filename: str, paper_id: int = None) -> Dict[str, Any]:
         """Process document and store chunks in vector database"""
         # Process the PDF
         processed_doc = await self.document_processor.process_pdf(file_content)
@@ -40,7 +40,8 @@ class RAGPipeline:
                     "page": start_page,
                     "title": processed_doc["metadata"]["title"],
                     "author": processed_doc["metadata"]["author"],
-                    "chunk_index": i
+                    "chunk_index": i,
+                    "paper_id": paper_id  # Add paper_id to metadata
                 })
         
         # Generate embeddings for all chunks
@@ -64,18 +65,20 @@ class RAGPipeline:
         """Generate embeddings for a batch of texts"""
         return [self.embedding_service.get_embeddings(text).tolist() for text in texts]
     
-    async def query(self, query: str, top_k: int = 5) -> Dict[str, Any]:
+    async def query(self, query: str, top_k: int = 5, paper_ids: List[int] = None) -> Dict[str, Any]:
         """Query the RAG system"""
         # Generate query embedding
         query_embedding = await asyncio.to_thread(
             self.embedding_service.get_embeddings, query
         )
         
-        # Search similar chunks
+        # Search similar chunks with optional paper_ids filter
         results = await asyncio.to_thread(
             self.vector_store.search_similar, 
             query_embedding.tolist(), 
-            top_k
+            top_k,
+            0.3,  # score_threshold
+            paper_ids  # Pass paper_ids filter
         )
         
         # Format results

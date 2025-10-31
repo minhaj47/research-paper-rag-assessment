@@ -1,6 +1,6 @@
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams, PointStruct
-from typing import List, Dict, Any
+from qdrant_client.models import Distance, VectorParams, PointStruct, Filter, FieldCondition, MatchAny
+from typing import List, Dict, Any, Optional
 import uuid
 from src.config import QDRANT_HOST, QDRANT_PORT
 
@@ -45,6 +45,7 @@ class QdrantDB:
                     "section": meta.get("section", ""),
                     "page": meta.get("page", 0),
                     "chunk_index": i,
+                    "paper_id": meta.get("paper_id"),  # Add paper_id for filtering
                     **meta
                 }
             )
@@ -56,12 +57,26 @@ class QdrantDB:
         )
         return len(points)
     
-    def search_similar(self, query_embedding: List[float], limit: int = 5, score_threshold: float = 0.3):
-        """Search for similar chunks"""
+    def search_similar(self, query_embedding: List[float], limit: int = 5, score_threshold: float = 0.3, paper_ids: Optional[List[int]] = None):
+        """Search for similar chunks with optional paper_ids filter"""
+        query_filter = None
+        
+        # Add filter for specific papers if paper_ids provided
+        if paper_ids and len(paper_ids) > 0:
+            query_filter = Filter(
+                must=[
+                    FieldCondition(
+                        key="paper_id",
+                        match=MatchAny(any=paper_ids)
+                    )
+                ]
+            )
+        
         results = self.client.search(
             collection_name=self.collection_name,
             query_vector=query_embedding,
             limit=limit,
-            score_threshold=score_threshold
+            score_threshold=score_threshold,
+            query_filter=query_filter
         )
         return results

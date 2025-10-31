@@ -16,68 +16,92 @@ class Query(BaseModel):
     top_k: int = 5
 
 @router.post("/upload")
-async def upload_papers(file: UploadFile = File(...), db: Session = Depends(get_db)):
-    """Upload and process a research paper"""
-    try:
-        # Check if paper already exists
-        existing_paper = DatabaseService.get_paper_by_filename(db, file.filename)
-        if existing_paper:
-            return {
+async def upload_papers(files: List[UploadFile] = File(...), db: Session = Depends(get_db)):
+    """Upload and process one or multiple research papers"""
+    results = []
+    
+    for file in files:
+        try:
+            # Check if paper already exists
+            existing_paper = DatabaseService.get_paper_by_filename(db, file.filename)
+            if existing_paper:
+                results.append({
+                    "status": "error",
+                    "filename": file.filename,
+                    "message": f"Paper '{file.filename}' already exists in the database",
+                    "paper_id": existing_paper.id
+                })
+                continue
+            
+            content = await file.read()
+            result = await rag_pipeline.process_and_store_document(content, file.filename)
+            
+            # Prepare sections metadata for database
+            sections_metadata = {
+                section: {
+                    "chunk_count": len(section_data["chunks"]),
+                    "start_page": section_data["start_page"],
+                    "preview": section_data["chunks"][0][:200] if section_data["chunks"] else ""
+                }
+                for section, section_data in result["sections"].items()
+            }
+            
+            # Save paper metadata to database
+            paper_data = {
+                "filename": file.filename,
+                "title": result["metadata"]["title"],
+                "author": result["metadata"]["author"],
+                "page_count": result["metadata"]["page_count"],
+                "file_size": len(content),
+                "content_type": file.content_type,
+                "total_chunks": result["stored_chunks"],
+                "sections_metadata": sections_metadata
+            }
+            
+            paper = DatabaseService.create_paper(db, paper_data)
+            
+            # Update vector store with paper_id (re-process with paper_id)
+            await rag_pipeline.process_and_store_document(content, file.filename, paper.id)
+            
+            results.append({
+                "status": "success",
+                "filename": file.filename,
+                "paper_id": paper.id,
+                "metadata": result["metadata"],
+                "sections": sections_metadata,
+                "total_chunks": result["stored_chunks"],
+                "content_type": file.content_type,
+                "file_size": len(content)
+            })
+        except Exception as e:
+            results.append({
                 "status": "error",
-                "message": f"Paper '{file.filename}' already exists in the database",
-                "paper_id": existing_paper.id
-            }
-        
-        content = await file.read()
-        result = await rag_pipeline.process_and_store_document(content, file.filename)
-        
-        # Prepare sections metadata for database
-        sections_metadata = {
-            section: {
-                "chunk_count": len(section_data["chunks"]),
-                "start_page": section_data["start_page"],
-                "preview": section_data["chunks"][0][:200] if section_data["chunks"] else ""
-            }
-            for section, section_data in result["sections"].items()
-        }
-        
-        # Save paper metadata to database
-        paper_data = {
-            "filename": file.filename,
-            "title": result["metadata"]["title"],
-            "author": result["metadata"]["author"],
-            "page_count": result["metadata"]["page_count"],
-            "file_size": len(content),
-            "content_type": file.content_type,
-            "total_chunks": result["stored_chunks"],
-            "sections_metadata": sections_metadata
-        }
-        
-        paper = DatabaseService.create_paper(db, paper_data)
-        
+                "filename": file.filename,
+                "message": str(e)
+            })
+    
+    # Return single result if only one file, otherwise return batch results
+    if len(results) == 1:
+        return results[0]
+    else:
         return {
-            "status": "success",
-            "paper_id": paper.id,
-            "filename": file.filename,
-            "metadata": result["metadata"],
-            "sections": sections_metadata,
-            "total_chunks": result["stored_chunks"],
-            "content_type": file.content_type,
-            "file_size": len(content)
+            "status": "completed",
+            "total": len(files),
+            "results": results
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post("/query")
 async def query_papers(
     query: str, 
-    top_k: int = 5, 
+    top_k: int = 5,
+    paper_ids: List[int] = None,
     db: Session = Depends(get_db)
 ) -> Dict[str, Any]:
-    """Query the RAG system with a question"""
+    """Query the RAG system with a question, optionally filtered by paper IDs"""
     try:
         start_time = time.time()
-        result = await rag_pipeline.query(query, top_k)
+        result = await rag_pipeline.query(query, top_k, paper_ids)
         response_time = time.time() - start_time
         
         # Extract paper IDs from citations
