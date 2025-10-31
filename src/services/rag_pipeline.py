@@ -163,3 +163,7 @@ class RAGPipeline:
                     "https://ollama.com/download"
                 )
             return f"Error generating response: {error_msg}"
+    
+    def delete_paper_vectors(self, paper_id: int) -> bool:
+        """Delete all vectors associated with a paper from Qdrant"""
+        return self.vector_store.delete_paper_vectors(paper_id)

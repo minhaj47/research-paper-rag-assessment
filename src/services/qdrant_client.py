@@ -80,3 +80,24 @@ class QdrantDB:
             query_filter=query_filter
         )
         return results
+    
+    def delete_paper_vectors(self, paper_id: int) -> bool:
+        """Delete all vectors associated with a paper_id"""
+        try:
+            # Delete points with matching paper_id
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=Filter(
+                    must=[
+                        FieldCondition(
+                            key="paper_id",
+                            match=MatchAny(any=[paper_id])
+                        )
+                    ]
+                )
+            )
+            print(f"✅ Deleted vectors for paper_id: {paper_id}")
+            return True
+        except Exception as e:
+            print(f"❌ Error deleting vectors for paper_id {paper_id}: {e}")
+            return False

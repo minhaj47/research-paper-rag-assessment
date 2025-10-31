@@ -41,7 +41,7 @@ async def upload_papers(files: List[UploadFile] = File(...), db: Session = Depen
                 section: {
                     "chunk_count": len(section_data["chunks"]),
                     "start_page": section_data["start_page"],
-                    "preview": section_data["chunks"][0][:200] if section_data["chunks"] else ""
+                    "preview": section_data["chunks"][0] if section_data["chunks"] else ""
                 }
                 for section, section_data in result["sections"].items()
             }
@@ -175,15 +175,26 @@ async def delete_paper(paper_id: int, db: Session = Depends(get_db)):
     if not paper:
         raise HTTPException(status_code=404, detail="Paper not found")
     
+    # Delete from Qdrant vector store first
+    vector_deleted = rag_pipeline.delete_paper_vectors(paper_id)
+    if not vector_deleted:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to delete vectors for paper {paper_id} from Qdrant"
+        )
+    
     # Delete from database
-    success = DatabaseService.delete_paper(db, paper_id)
-    if not success:
-        raise HTTPException(status_code=500, detail="Failed to delete paper")
+    db_deleted = DatabaseService.delete_paper(db, paper_id)
+    if not db_deleted:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to delete paper {paper_id} from database"
+        )
     
-    # TODO: Also delete from Qdrant vector store
-    # rag_pipeline.delete_paper_vectors(paper.filename)
-    
-    return {"status": "success", "message": f"Paper {paper_id} deleted"}
+    return {
+        "status": "success", 
+        "message": f"Paper '{paper.title}' (ID: {paper_id}) deleted successfully from both vector store and database"
+    }
 
 @router.get("/papers/{paper_id}/stats")
 async def get_paper_stats(paper_id: int, db: Session = Depends(get_db)):
